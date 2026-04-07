@@ -1,0 +1,24 @@
+<div id="splashScreen" class="splash">
+    <div class="splash-bg"></div>
+
+    <div class="splash-content">
+        <div class="splash-title">THE WEDDING OF</div>
+
+        <div class="splash-image">
+            <img src="<%= invitation.photoUrl %>" alt="Couple" />
+        </div>
+
+        <div class="splash-name">
+            <%= invitation.coupleName %>
+        </div>
+    </div>
+
+    <div class="splash-loading">
+        <span>
+            <%= invitation.loadingText %>
+        </span>
+        <span id="progressText">
+            <%= progress %>%
+        </span>
+    </div>
+</div>

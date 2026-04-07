@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Invitation - Imam & Nandira</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/splash.css">
+    <link rel="stylesheet" href="/css/left-panel.css">
+    <link rel="stylesheet" href="/css/right-panel.css">
+    <link rel="stylesheet" href="/css/menu.css">
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html, body {
+        height: 100%;
+        width: 100%;
+        overflow: hidden; /* Kunci scroll global di awal */
+    }
+
+    /* Saat terbuka, izinkan scroll hanya jika konten melebih tinggi layar */
+    body.is-unlocked {
+        overflow-y: auto;
+    }
+</style>
+
+<body class="min-h-screen overflow-hidden bg-[#0b0b0b]">
+
+    <%- include('partials/splash') %>
+
+    <%- include('partials/menu') %>
+
+    <main id="mainContent" class="opacity-0 transition-opacity duration-1000 min-h-screen w-full grid grid-cols-1 lg:grid-cols-[1.5fr_0.5fr]">
+        <%- include('partials/left-panel') %>
+        <%- include('partials/right-panel') %>
+    </main>
+
+    <script>
+        const openBtn = document.getElementById('openBtn');
+        const mainContent = document.getElementById('mainContent');
+        const menuIcon = document.getElementById('menuIcon');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const closeMenu = document.getElementById('closeMenu');
+        const menuBackdrop = document.querySelector('.menu-backdrop');
+
+        // Klik LET'S OPEN
+        if (openBtn) {
+            openBtn.addEventListener('click', () => {
+                mainContent.classList.add('is-opened');
+                document.body.style.overflow = 'auto';
+            });
+        }
+
+        // Toggle Menu
+        if (menuIcon && menuOverlay && closeMenu) {
+            // Fungsi Buka
+            menuIcon.addEventListener('click', () => {
+                menuOverlay.classList.add('active');
+            });
+
+            // Fungsi Tutup
+            const handleClose = () => {
+                menuOverlay.classList.remove('active');
+            };
+
+            closeMenu.addEventListener('click', handleClose);
+            
+            // Menutup juga bisa dengan klik area hitam (backdrop)
+            if (menuBackdrop) {
+                menuBackdrop.addEventListener('click', handleClose);
+            }
+        }
+    </script>
+    
+    <script src="/js/splash.js"></script>
+</body>
+</html>
