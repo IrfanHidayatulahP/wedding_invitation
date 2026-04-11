@@ -1,34 +1,14 @@
 <aside class="right-panel">
-    <img src="/images/right-couple.jpg" class="right-bg" />
-    <div class="right-overlay"></div>
-
-    <div id="menuIcon" class="menu-burger cursor-pointer">
-        <div class="line"></div>
-        <div class="line small"></div>
-    </div>
+    <%- include('../components/right-bg.ejs') %>
+    <%- include('../components/menu-burger.ejs') %>
 
     <div class="right-inner-content">
-        <div class="wedding-header">
-            <span class="label">THE WEDDING OF</span>
-            <h1 class="couple-name">Imam Nandira</h1>
-            <p class="date">SATURDAY, 9TH DECEMBER 202X</p>
-        </div>
+        <%- include('../components/wedding-header.ejs') %>
 
-        <div class="invitation-box">
-            <div class="guest-section">
-                <p class="dear">Dear,</p>
-                <h3 class="guest-name">Guest Name</h3>
-                <p class="note">We apologize if there is any misspelling of name or title</p>
-            </div>
-            <button id="openBtn" class="open-btn">LET'S OPEN</button>
-        </div>
+        <%- include('../components/invitation-box.ejs') %>
 
-        <div class="scroll-indicator">
-            <div class="circle-arrow">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-                </svg>
-            </div>
-        </div>
+        <%- include('../components/opened-content.ejs') %>
+
+        <%- include('../components/scroll-indicator.ejs') %>
     </div>
 </aside>

@@ -40,7 +40,7 @@
 
     <%- include('partials/menu') %>
 
-    <main id="mainContent" class="opacity-0 transition-opacity duration-1000 min-h-screen w-full grid grid-cols-1 lg:grid-cols-[1.5fr_0.5fr]">
+    <main id="mainContent" class="opacity-0 transition-opacity duration-1000 min-h-screen w-full grid grid-cols-1 lg:grid-cols-[69.5fr_30.5fr]">
         <%- include('partials/left-panel') %>
         <%- include('partials/right-panel') %>
     </main>
@@ -61,27 +61,10 @@
             });
         }
 
-        // Toggle Menu
-        if (menuIcon && menuOverlay && closeMenu) {
-            // Fungsi Buka
-            menuIcon.addEventListener('click', () => {
-                menuOverlay.classList.add('active');
-            });
-
-            // Fungsi Tutup
-            const handleClose = () => {
-                menuOverlay.classList.remove('active');
-            };
-
-            closeMenu.addEventListener('click', handleClose);
-            
-            // Menutup juga bisa dengan klik area hitam (backdrop)
-            if (menuBackdrop) {
-                menuBackdrop.addEventListener('click', handleClose);
-            }
-        }
     </script>
-    
+
+    <script src="/js/menu.js"></script>
+
     <script src="/js/splash.js"></script>
 </body>
 </html>
