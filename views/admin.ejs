@@ -1,0 +1,80 @@
+<div class="admin-container">
+    <h2>Invitation Link Generator</h2>
+    <p>Ketik nama tamu di bawah ini untuk membuat link otomatis.</p>
+
+    <div class="input-group">
+        <input type="text" id="guestNameInput" placeholder="Contoh: Budi Santoso">
+        <button onclick="generateLink()">Generate Link</button>
+    </div>
+
+    <div id="resultBox" style="display: none;">
+        <p>Hasil Link:</p>
+        <div class="copy-wrapper">
+            <input type="text" id="generatedLink" readonly>
+            <button onclick="copyAdminLink()">Copy</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .admin-container {
+        background: #1a1a1a;
+        color: white;
+        padding: 40px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+        padding: 12px;
+        width: 300px;
+        border: none;
+    }
+
+    button {
+        padding: 12px 20px;
+        cursor: pointer;
+        background: #fff;
+        border: none;
+    }
+
+    #resultBox {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .copy-wrapper {
+        display: flex;
+        gap: 5px;
+    }
+</style>
+
+<script>
+    function generateLink() {
+        const name = document.getElementById('guestNameInput').value;
+        if (!name) return alert('Ketik nama dulu ya!');
+
+        // Encode nama agar aman di URL (spasi jadi %20)
+        const encodedName = encodeURIComponent(name);
+        const baseUrl = window.location.origin;
+        const fullLink = `${baseUrl}/?to=${encodedName}`;
+
+        document.getElementById('generatedLink').value = fullLink;
+        document.getElementById('resultBox').style.display = 'block';
+    }
+
+    function copyAdminLink() {
+        const linkInput = document.getElementById('generatedLink');
+        linkInput.select();
+        document.execCommand('copy');
+        alert('Link berhasil disalin!');
+    }
+</script>

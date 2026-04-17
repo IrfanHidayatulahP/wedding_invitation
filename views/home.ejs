@@ -57,7 +57,11 @@
         if (openBtn) {
             openBtn.addEventListener('click', () => {
                 mainContent.classList.add('is-opened');
-                document.body.style.overflow = 'auto';
+                
+                // Timeout untuk mengaktifkan scroll setelah animasi header selesai
+                setTimeout(() => {
+                    document.body.classList.add('is-unlocked');
+                }, 1000);
             });
         }
 
