@@ -1,35 +1,24 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('invitations', {
+  return sequelize.define('guests', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    guest_name: {
+    name: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    wedding_title: {
+    slug: {
       type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    couple_name: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    photo_url: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    loading_text: {
-      type: DataTypes.STRING(100),
-      allowNull: true
+      allowNull: false,
+      unique: "slug_unique"
     }
   }, {
     sequelize,
-    tableName: 'invitations',
+    tableName: 'guests',
     timestamps: false,
     indexes: [
       {
@@ -38,6 +27,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "slug_unique",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "slug" },
         ]
       },
     ]

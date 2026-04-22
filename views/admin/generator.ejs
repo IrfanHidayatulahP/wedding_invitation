@@ -1,0 +1,29 @@
+<div class="admin-box">
+    <h2>Invitation Generator</h2>
+    <form action="/admin/generate" method="POST">
+        <input type="text" name="name" placeholder="Nama Tamu Undangan" required>
+        <button type="submit">Buat Link</button>
+    </form>
+
+    <div class="list-tamu">
+        <h3>Daftar Link Undangan:</h3>
+        <ul>
+            <% guests.forEach(guest => { %>
+                <li>
+                    <strong><%= guest.name %></strong><br>
+                    <input type="text" readonly value="<%= host %>/i/<%= guest.slug %>" id="link-<%= guest.id %>">
+                    <button onclick="copyLink('link-<%= guest.id %>')">Copy</button>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+</div>
+
+<script>
+function copyLink(id) {
+    var copyText = document.getElementById(id);
+    copyText.select();
+    document.execCommand("copy");
+    alert("Link disalin!");
+}
+</script>
