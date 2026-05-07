@@ -5,14 +5,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wedding Invitation - Imam & Nandira</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Cormorant+Garamond:wght@300;400&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/splash.css">
     <link rel="stylesheet" href="/css/left-panel.css">
-    <link rel="stylesheet" href="/css/right-panel.css">
     <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/couple.css">
+    <link rel="stylesheet" href="/css/story.css">
+    <link rel="stylesheet" href="/css/event.css">
+    <link rel="stylesheet" href="/css/gallery.css">
+    <link rel="stylesheet" href="/css/features.css">
+    <link rel="stylesheet" href="/css/closing.css">
+    <link rel="stylesheet" href="/css/hero.css">
+    <link rel="stylesheet" href="/css/welcome.css">
+    <link rel="stylesheet" href="/css/opened-content.css">
+    <link rel="stylesheet" href="/css/wishes.css">
+    <link rel="stylesheet" href="/css/gift.css">
+    <link rel="stylesheet" href="/css/countdown.css">
+    <link rel="stylesheet" href="/css/video.css">
 </head>
 
 <style>
@@ -21,11 +40,13 @@
         padding: 0;
         box-sizing: border-box;
     }
-    
-    html, body {
+
+    html,
+    body {
         height: 100%;
         width: 100%;
-        overflow: hidden; /* Kunci scroll global di awal */
+        overflow: hidden;
+        /* Kunci scroll global di awal */
     }
 
     /* Saat terbuka, izinkan scroll hanya jika konten melebih tinggi layar */
@@ -38,9 +59,9 @@
 
     <%- include('partials/splash') %>
 
-    <%- include('partials/menu') %>
+    <%- include('components/menu') %>
 
-    <main id="mainContent" class="opacity-0 transition-opacity duration-1000 min-h-screen w-full grid grid-cols-1 lg:grid-cols-[69.5fr_30.5fr]">
+    <main id="mainContent" class="grid grid-cols-1 lg:grid-cols-[69.5fr_30.5fr] p-0 m-0">
         <%- include('partials/left-panel') %>
         <%- include('partials/right-panel') %>
     </main>
@@ -57,7 +78,7 @@
         if (openBtn) {
             openBtn.addEventListener('click', () => {
                 mainContent.classList.add('is-opened');
-                
+
                 // Timeout untuk mengaktifkan scroll setelah animasi header selesai
                 setTimeout(() => {
                     document.body.classList.add('is-unlocked');
@@ -71,4 +92,5 @@
 
     <script src="/js/splash.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,69 @@
+<!-- views/components/gallery.ejs -->
+<section class="gallery-background-section">
+    <div class="bg-slider" id="gallerySlider">
+        <div class="bg-item" style="background-image: url('/images/SLM08455.JPG');"></div>
+        <div class="bg-item" style="background-image: url('/images/SLM08533.JPG');"></div>
+        <div class="bg-item" style="background-image: url('/images/SLM08673.JPG');"></div>
+        <div class="bg-item" style="background-image: url('/images/SLM08743.JPG');"></div>
+        <div class="bg-item" style="background-image: url('/images/SLM08759.JPG');"></div>
+        <div class="bg-item" style="background-image: url('/images/SLM08874.JPG');"></div>
+        <div class="bg-item" style="background-image: url('/images/SLM09249.JPG');"></div>
+        <div class="bg-item" style="background-image: url('/images/SLM09312.JPG');"></div>
+    </div>
+
+    <div class="gallery-nav">
+        <button class="nav-btn prev" onclick="moveSlider(-1)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6" />
+            </svg>
+        </button>
+        <button class="nav-btn next" onclick="moveSlider(1)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" />
+            </svg>
+        </button>
+    </div>
+
+    <div class="gallery-content-overlay">
+        <div class="gallery-text-stack">
+            <h2 class="section-title soft-shadow">GALLERY</h2>
+            <p class="gallery-desc soft-shadow">
+                Moments of love, captured forever as the background of our journey.
+            </p>
+        </div>
+        <div class="bottom-shade"></div>
+    </div>
+</section>
+
+<script>
+    let currentIndex = 0;
+    const slider = document.getElementById('gallerySlider');
+    const items = document.querySelectorAll('.bg-item');
+    const totalItems = items.length;
+
+    function moveSlider(direction) {
+        // Update index berdasarkan arah (1 atau -1)
+        currentIndex += direction;
+
+        // Logika Unlimited/Infinite Loop
+        if (currentIndex >= totalItems) {
+            currentIndex = 0; // Kembali ke gambar pertama
+        } else if (currentIndex < 0) {
+            currentIndex = totalItems - 1; // Lompat ke gambar terakhir
+        }
+
+        // Jalankan scroll ke posisi yang sesuai
+        const scrollWidth = slider.clientWidth;
+        slider.scrollTo({
+            left: currentIndex * scrollWidth,
+            behavior: 'smooth'
+        });
+    }
+
+    // Opsional: Pastikan currentIndex update jika user swipe manual (untuk mobile)
+    slider.addEventListener('scroll', () => {
+        const scrollPos = slider.scrollLeft;
+        const itemWidth = slider.clientWidth;
+        currentIndex = Math.round(scrollPos / itemWidth);
+    });
+</script>

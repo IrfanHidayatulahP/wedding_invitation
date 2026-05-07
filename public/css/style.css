@@ -1,0 +1,72 @@
+/* Container utama panel kanan */
+.right-panel {
+    position: relative;
+    /* Menjadi patokan untuk elemen absolute di dalamnya */
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Background tetap di belakang */
+.right-bg-container {
+    position: absolute;
+    /* Fixed atau Absolute agar tidak ikut tergulung jika konten panjang */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    /* Layer paling bawah */
+}
+
+/* Overlay untuk menggelapkan gambar agar teks putih terbaca */
+.right-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    /* Di atas gambar, di bawah teks */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+}
+
+/* KONTEN TEKS (PENTING!) */
+.right-inner-content {
+    position: relative;
+    z-index: 10;
+    /* Layer paling atas */
+    color: white;
+    /* Pastikan warna teks kontras */
+    padding: 40px;
+    /* Jarak agar teks tidak menempel ke tepi */
+}
+
+/* Gaya gambar slideshow (seperti sebelumnya) */
+.slide-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: crossFade 10s infinite ease-in-out;
+}
+
+.slide-image:nth-child(2) {
+    animation-delay: 5s;
+}
+
+@keyframes crossFade {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    10%,
+    50% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 0;
+    }
+}

@@ -1,8 +1,11 @@
-<section class="left-panel">
-    <img src="/images/left-couple.jpg" alt="Imam Nandira" class="left-image" />
-    <div class="left-overlay"></div>
+<section class="left-panel relative h-screen overflow-hidden">
+    <img src="/images/SLM08455.JPG" alt="Imam Nandira" class="left-image w-full h-full object-cover" />
 
-    <div class="left-content">
-        <h2 class="left-title">IMAM NANDIRA</h2>
+    <div class="left-overlay absolute inset-0 bg-black/30"></div>
+
+    <div class="left-content absolute inset-0 flex items-center justify-center z-10">
+        <h2 class="left-title text-white font-serif text-4xl tracking-[0.2em] uppercase">
+            <%= typeof coupleName !=='undefined' ? coupleName : 'IMAM NANDIRA' %>
+        </h2>
     </div>
 </section>

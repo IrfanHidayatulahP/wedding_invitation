@@ -1,0 +1,102 @@
+/* public/css/wishes.css */
+
+.wishes-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 0;
+}
+
+.wishes-bg-image {
+    position: absolute;
+    /* Memastikan tidak ada celah di pinggir layar */
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    /* Paksa gambar sedikit lebih besar agar menutupi area secara total */
+    transform: scale(1.1);
+}
+
+/* Background spesifik untuk halaman Input Wishes */
+.wishes-input-page .wishes-bg-image {
+    background-image: url('/images/SLM09121.JPG');
+}
+
+/* Background spesifik untuk halaman Display Wishes */
+.wishes-display-page .wishes-bg-image {
+    background-image: url('/images/SLM09307.JPG');
+}
+
+.wishes-overlay {
+    position: absolute;
+    inset: 0;
+    /* Menggunakan overlay gelap agar teks putih tetap kontras */
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+}
+
+.wishes-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 450px;
+    padding: 0 30px;
+    color: white;
+    text-align: center;
+}
+
+/* Form Styling */
+.wish-input,
+.wish-textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 12px 15px;
+    color: white;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.send-btn {
+    width: 100%;
+    padding: 15px;
+    background: white;
+    color: black;
+    border: none;
+    letter-spacing: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Gallery Styling */
+.wishes-display-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Custom Scrollbar agar tetap clean */
+.wishes-display-container::-webkit-scrollbar {
+    width: 3px;
+}
+
+.wishes-display-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.wish-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    margin-bottom: 15px;
+    text-align: left;
+    border-left: 2px solid rgba(255, 255, 255, 0.4);
+}

@@ -1,0 +1,65 @@
+<!-- views/components/countdown.ejs -->
+<!-- views/components/countdown.ejs -->
+<section class="countdown-section">
+    <!-- Background Image Layer -->
+    <div class="countdown-bg-image"></div>
+
+    <!-- Overlay Layer -->
+    <div class="countdown-overlay"></div>
+
+    <!-- Content Layer -->
+    <div class="countdown-content">
+        <h2 class="countdown-title">ALMOST TIME FOR OUR CELEBRATION</h2>
+
+        <div class="timer-grid">
+            <div class="timer-item">
+                <span id="days" class="timer-number">00</span>
+                <span class="timer-label">DAYS</span>
+            </div>
+            <div class="timer-item">
+                <span id="hours" class="timer-number">00</span>
+                <span class="timer-label">HOURS</span>
+            </div>
+            <div class="timer-item">
+                <span id="minutes" class="timer-number">00</span>
+                <span class="timer-label">MINUTES</span>
+            </div>
+            <div class="timer-item">
+                <span id="seconds" class="timer-number">00</span>
+                <span class="timer-label">SECONDS</span>
+            </div>
+        </div>
+
+        <div class="action-container">
+            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Wedding+of+Imam+%26+Nandira&dates=20261209T010000Z/20261209T070000Z&details=Selamat+datang+di+pernikahan+kami!&location=Gedung+Pertemuan+Multiguna&sf=true&output=xml"
+                target="_blank" class="save-date-btn">
+                &rarr; SAVE THE DATE
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Set tanggal acara (9 Desember 2026)
+    const weddingDate = new Date("Dec 9, 2026 08:00:00").getTime();
+
+    const countdownTimer = setInterval(function () {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+
+        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerHTML = d.toString().padStart(2, '0');
+        document.getElementById("hours").innerHTML = h.toString().padStart(2, '0');
+        document.getElementById("minutes").innerHTML = m.toString().padStart(2, '0');
+        document.getElementById("seconds").innerHTML = s.toString().padStart(2, '0');
+
+        if (distance < 0) {
+            clearInterval(countdownTimer);
+            document.querySelector(".timer-grid").innerHTML = "HARI BAHAGIA TELAH TIBA";
+        }
+    }, 1000);
+</script>

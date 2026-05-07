@@ -1,0 +1,91 @@
+/* public/css/closing.css */
+
+.closing-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    /* Full screen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 0;
+}
+
+/* Background Image Full Content */
+.closing-bg-image {
+    position: absolute;
+    inset: 0;
+    background: url('/images/SLM08669.JPG') no-repeat center;
+    background-size: cover;
+    z-index: 1;
+    transform: scale(1.1);
+    /* Efek zoom agar full screen tanpa celah */
+    filter: brightness(0.5);
+    /* Gelapkan sedikit agar elemen di depan menonjol */
+}
+
+.closing-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+    z-index: 2;
+}
+
+.closing-content-wrapper {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: white;
+    width: 100%;
+    max-width: 450px;
+    padding: 0 20px;
+}
+
+.closing-thank-you {
+    font-size: 12px;
+    letter-spacing: 0.8em;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.closing-divider {
+    width: 40px;
+    height: 1px;
+    background: white;
+    margin: 0 auto 20px;
+}
+
+.closing-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-style: italic;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.closing-date {
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+/* Styling Foto Utama di Halaman Penutup */
+.closing-image-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.closing-img {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    filter: brightness(0.9);
+}

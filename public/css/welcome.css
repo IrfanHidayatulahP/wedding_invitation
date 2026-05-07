@@ -1,0 +1,134 @@
+/* public/css/welcome.css */
+
+.welcome-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Ubah justify-content dari center ke flex-start */
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.welcome-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    opacity: 0;
+    /* Durasi total 10s agar tiap gambar tampil 5s */
+    animation: welcomeFade 10s infinite ease-in-out;
+}
+
+/* Gambar Pertama */
+.welcome-bg-1 {
+    background-image: url('/images/SLM09249.JPG');
+}
+
+/* Gambar Kedua (Path Baru) */
+.welcome-bg-2 {
+    background-image: url('/images/SLM09290.JPG');
+    animation-delay: 5s;
+    /* Mulai setelah gambar pertama selesai delay-nya */
+}
+
+.welcome-text-wrapper {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    /* Tambahkan margin-top untuk mengatur seberapa jauh teks dari batas atas */
+    margin-top: 10vh;
+    /* Menggunakan vh agar adaptif di berbagai ukuran layar */
+}
+
+.welcome-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    font-weight: 400;
+    margin-bottom: 8px;
+    display: block;
+    color: white;
+}
+
+.welcome-couple-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    color: white;
+}
+
+.welcome-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    font-weight: 300;
+    color: white;
+}
+
+/* --- SCROLL INDICATOR --- */
+.scroll-indicator {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.scroll-circle {
+    width: 35px;
+    height: 35px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.scroll-circle svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Animasi Fade & Zoom Halus */
+@keyframes welcomeFade {
+
+    0%,
+    100% {
+        opacity: 0;
+        transform: scale(1.05);
+        /* Efek zoom out sedikit */
+    }
+
+    10%,
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    60% {
+        opacity: 0;
+    }
+}
+
+.welcome-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 2;
+}
+
+.welcome-text-wrapper {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: white;
+}

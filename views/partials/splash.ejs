@@ -4,9 +4,7 @@
     <div class="splash-content">
         <div class="splash-title">THE WEDDING OF</div>
 
-        <div class="splash-image">
-            <img src="<%= photoUrl %>" alt="Couple" />
-        </div>
+        <div class="splash-image" id="imageContainer"></div>
 
         <div class="splash-name">
             <%= coupleName %>
@@ -14,11 +12,7 @@
     </div>
 
     <div class="splash-loading">
-        <span>
-            <%= loadingText %>
-        </span>
-        <span id="progressText">
-            <%= progress %>%
-        </span>
+        <span class="loading-label">LOADING</span>
+        <span id="progressText">0%</span>
     </div>
 </div>

@@ -1,0 +1,187 @@
+/* public/css/video.css */
+
+/* 1. KONTEN UTAMA & LAYOUT */
+.video-section {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background-color: #000;
+}
+
+.split-layout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.split-left,
+.split-right {
+    position: relative;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* 2. BACKGROUND & OVERLAY (IDENTIK DENGAN HALAMAN LAIN) */
+.split-bg-image {
+    position: absolute;
+    inset: -2px;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    transform: scale(1.05);
+}
+
+.split-overlay,
+.split-overlay-dark {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+}
+
+.split-overlay {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.split-overlay-dark {
+    background: rgba(0, 0, 0, 0.65);
+}
+
+/* 3. WRAPPER KONTEN */
+.video-content-wrapper {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 0 40px;
+}
+
+.video-header {
+    margin-bottom: 35px;
+}
+
+.video-subtitle {
+    font-size: 11px;
+    letter-spacing: 0.6em;
+    margin-bottom: 10px;
+    opacity: 0.8;
+    text-transform: uppercase;
+}
+
+.video-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    letter-spacing: 0.25em;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+/* 4. VIDEO PLAYER & CONTROLS */
+.video-player-container {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 16/9;
+    background: #000;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+.content-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Overlay Kontrol Utama */
+.video-controls-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* State: Saat Video Diputar (Sembunyikan) */
+.video-controls-overlay.is-playing {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* State: Munculkan Kembali Saat Hover di atas Container */
+.video-player-container:hover .video-controls-overlay {
+    opacity: 1;
+    visibility: visible;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* 5. TOMBOL & IKON */
+.play-pause-btn {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background 0.3s;
+}
+
+.play-pause-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.icon-svg {
+    width: 25px;
+    height: 25px;
+    color: white;
+}
+
+.icon-svg.hidden {
+    display: none;
+}
+
+/* 6. KUTIPAN TULISAN TANGAN */
+.video-quote-box {
+    max-width: 340px;
+    margin-top: 10px;
+}
+
+.handwriting-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 19px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    font-style: italic;
+}
+
+/* 7. RESPONSIVE MOBILE */
+@media (max-width: 992px) {
+    .split-left {
+        display: none;
+    }
+
+    /* Tetap pertahankan split-layout logic */
+    .video-content-wrapper {
+        padding: 0 25px;
+    }
+
+    .video-title {
+        font-size: 20px;
+    }
+}

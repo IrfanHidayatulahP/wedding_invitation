@@ -1,0 +1,21 @@
+/* Dresscode */
+.color-palette {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.color-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+/* Gift */
+.bank-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px 20px;
+    border-radius: 4px;
+}

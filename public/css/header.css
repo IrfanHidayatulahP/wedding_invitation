@@ -1,0 +1,144 @@
+.right-panel,
+.right-inner-content {
+    margin: 0;
+    padding: 0;
+}
+
+.header-content {
+    margin-bottom: 2vh;
+}
+
+.invitation-box {
+    margin-top: 20px;
+}
+
+/* --- MERAPIKAN TULISAN --- */
+.couple-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 9vw, 56px);
+    line-height: 1.1;
+    margin: 15px 0;
+    font-weight: 400;
+}
+
+/* Memperbaiki jarak Invitation Box agar naik ke atas */
+.invitation-box {
+    margin-top: 40px;
+    /* Jarak dari nama pengantin */
+    width: 90%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.guest-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    margin: 5px 0 15px 0;
+    font-style: italic;
+}
+
+.note {
+    font-size: 11px;
+    line-height: 1.6;
+    opacity: 0.7;
+    margin-bottom: 30px;
+    /* Ruang sebelum tombol */
+}
+
+/* Tombol Buka */
+.open-btn {
+    background: white;
+    color: #111;
+    padding: 16px 50px;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+}
+
+/* public/css/header.css */
+
+/* --- HERO SECTION (Gabungan Header & Box) --- */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    /* Tinggi penuh layar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #0b0b0b;
+    padding: 0 !important;
+}
+
+/* --- BACKGROUND SLIDESHOW --- */
+.hero-section::before,
+.hero-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Menggunakan cover untuk memastikan gambar memenuhi container walau terpotong sampingnya */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    opacity: 0;
+    animation: cssSlideshow 12s infinite ease-in-out;
+    filter: brightness(0.5);
+}
+
+.hero-section::before {
+    background-image: url('/images/SLM09290.JPG');
+    /* Gambar 1 */
+}
+
+.hero-section::after {
+    background-image: url('/images/SLM09249.JPG');
+    /* Gambar 2 */
+    animation-delay: 6s;
+}
+
+/* Pastikan konten teks berada di depan background */
+.header-content,
+.invitation-box {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-burger-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    /* Supaya di atas gambar */
+}
+
+@keyframes cssSlideshow {
+
+    0%,
+    100% {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+
+    10%,
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    60% {
+        opacity: 0;
+    }
+}

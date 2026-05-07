@@ -1,0 +1,87 @@
+/* public/css/couple-info.css */
+
+.couple-info-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    /* Full screen sesuai preferensi Anda */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: white;
+}
+
+.couple-bg-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    transform: scale(1.05);
+    /* Sedikit zoom agar tidak ada celah */
+}
+
+/* Set background berbeda untuk tiap halaman */
+.groom-page .couple-bg-image {
+    background-image: url('/images/SLM08846.JPG');
+    /* Sesuaikan path gambar Anda */
+}
+
+.bride-page .couple-bg-image {
+    background-image: url('/images/SLM08509.JPG');
+    /* Sesuaikan path gambar Anda */
+}
+
+.couple-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    /* Overlay gelap agar teks terbaca */
+    z-index: 2;
+}
+
+.couple-content-wrapper {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 80%;
+}
+
+.section-title {
+    font-size: 12px;
+    letter-spacing: 0.5em;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 6vw, 54px);
+    margin-bottom: 15px;
+}
+
+.parents {
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+
+.instagram-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: background 0.3s;
+}
+
+.instagram-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+}

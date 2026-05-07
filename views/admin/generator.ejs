@@ -1,29 +1,123 @@
-<div class="admin-box">
-    <h2>Invitation Generator</h2>
-    <form action="/admin/generate" method="POST">
-        <input type="text" name="name" placeholder="Nama Tamu Undangan" required>
-        <button type="submit">Buat Link</button>
-    </form>
+<!DOCTYPE html>
+<html lang="id">
 
-    <div class="list-tamu">
-        <h3>Daftar Link Undangan:</h3>
-        <ul>
-            <% guests.forEach(guest => { %>
-                <li>
-                    <strong><%= guest.name %></strong><br>
-                    <input type="text" readonly value="<%= host %>/i/<%= guest.slug %>" id="link-<%= guest.id %>">
-                    <button onclick="copyLink('link-<%= guest.id %>')">Copy</button>
-                </li>
-            <% }) %>
-        </ul>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - <%= weddingTitle %>
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* Tambahan style khusus admin agar input terlihat modern */
+        .admin-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .admin-input:focus {
+            border-color: rgba(255, 255, 255, 0.5);
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0b0b0b] text-white min-h-screen overflow-x-hidden">
+
+    <div class="grid grid-cols-1 lg:grid-cols-[69.5fr_30.5fr] min-h-screen">
+
+        <section class="relative hidden lg:flex items-center justify-center overflow-hidden border-r border-white/10">
+            <div class="absolute inset-0 z-0">
+                <img src="<%= photoUrl %>" class="w-full h-full object-cover opacity-40" alt="Background">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0b0b0b] via-transparent to-transparent"></div>
+            </div>
+            <div class="relative z-10 text-center">
+                <p class="tracking-[0.3em] text-sm mb-4 opacity-70">
+                    <%= weddingTitle %>
+                </p>
+                <h1 class="text-5xl font-serif uppercase tracking-widest">
+                    <%= coupleName %>
+                </h1>
+            </div>
+        </section>
+
+        <section class="p-8 lg:p-12 flex flex-col h-screen">
+            <header class="mb-12">
+                <h2 class="text-2xl font-light tracking-widest uppercase">Link Generator</h2>
+                <p class="text-xs opacity-50 mt-2">Kelola daftar tamu dan link undangan digital</p>
+            </header>
+
+            <form action="/admin/generate" method="POST" class="mb-10">
+                <div class="flex flex-col gap-4">
+                    <input type="text" name="name" placeholder="Masukkan Nama Tamu..."
+                        class="admin-input p-4 rounded-lg w-full text-lg" required>
+                    <button type="submit"
+                        class="bg-white text-black py-4 rounded-lg font-bold hover:bg-gray-200 transition duration-300 tracking-widest uppercase text-sm">
+                        Generate Link
+                    </button>
+                </div>
+            </form>
+
+            <div class="flex-1 overflow-y-auto custom-scrollbar pr-2">
+                <h3 class="text-xs uppercase tracking-widest mb-6 opacity-40">Daftar Tamu Terdaftar</h3>
+
+                <div class="space-y-4">
+                    <% guests.forEach(guest=> { %>
+                        <div
+                            class="admin-input p-5 rounded-xl border border-white/5 hover:border-white/20 transition group">
+                            <div class="flex justify-between items-start mb-3">
+                                <span class="font-medium text-gray-200">
+                                    <%= guest.name %>
+                                </span>
+                                <span class="text-[10px] opacity-30 italic">#<%= guest.id %></span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="text" readonly value="<%= host %>/i/<%= guest.slug %>"
+                                    id="link-<%= guest.id %>"
+                                    class="bg-black/40 text-[11px] p-2 rounded flex-1 border-none text-gray-400">
+                                <button onclick="copyLink('link-<%= guest.id %>')"
+                                    class="text-[10px] bg-white/10 hover:bg-white hover:text-black px-3 py-2 rounded transition font-bold uppercase">
+                                    Copy
+                                </button>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+            </div>
+        </section>
     </div>
-</div>
 
-<script>
-function copyLink(id) {
-    var copyText = document.getElementById(id);
-    copyText.select();
-    document.execCommand("copy");
-    alert("Link disalin!");
-}
-</script>
+    <script>
+        function copyLink(id) {
+            const copyText = document.getElementById(id);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // Untuk mobile
+            navigator.clipboard.writeText(copyText.value);
+
+            // Notifikasi sederhana
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "Copied!";
+            btn.classList.add('bg-green-500', 'text-white');
+
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove('bg-green-500', 'text-white');
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>

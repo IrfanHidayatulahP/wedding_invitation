@@ -1,23 +1,30 @@
 <aside class="right-panel">
-    <%- include('../components/right-bg.ejs') %>
-    <%- include('../components/menu-burger.ejs') %>
+    <div class="menu-burger-container">
+        <%- include('../components/menu-burger.ejs') %>
+    </div>
 
     <div class="right-inner-content">
-        <%- include('../components/wedding-header.ejs') %>
-        <%- include('../components/invitation-box.ejs') %>
+        <div class="hero-section">
+            <%- include('../components/wedding-header.ejs') %>
+            <%- include('../components/invitation-box.ejs') %>
+        </div>
         
+        <!-- Konten yang muncul setelah di-scroll -->
         <div class="content-wrapper">
+            <%- include('../components/scroll-indicator.ejs') %>
+            <%- include('../components/welcome.ejs') %>
             <%- include('../components/opened-content.ejs') %>
-            <%- include('../components/couple-info.ejs') %>
+            <%- include('../components/groom-info.ejs') %>
+            <%- include('../components/bride-info.ejs') %>
             <%- include('../components/love-story.ejs') %>
             <%- include('../components/wedding-event.ejs') %>
-            <%- include('../components/wishes.ejs') %>
-            <%- include('../components/dresscode.ejs') %>
+            <%- include('../components/countdown.ejs') %>
+            <%- include('../components/wishes-input.ejs') %>
+            <%- include('../components/wishes-display.ejs') %>
             <%- include('../components/wedding-gift.ejs') %>
-            <%- include('../components/gallery-background.ejs') %>
+            <%- include('../components/gallery.ejs') %>
+            <%- include('../components/video-playback.ejs') %>
             <%- include('../components/closing.ejs') %>
         </div>
-
-        <%- include('../components/scroll-indicator.ejs') %>
     </div>
 </aside>

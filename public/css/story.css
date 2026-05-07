@@ -1,0 +1,155 @@
+/* public/css/story.css */
+
+.love-story-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.story-bg-image {
+    position: absolute;
+    inset: -2px;
+    background: url('/images/SLM09292.JPG') no-repeat center;
+    background-size: cover;
+    z-index: 1;
+    transform: scale(1.05);
+}
+
+.story-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
+    z-index: 2;
+}
+
+.story-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* KONSEP SLIDER / GALLERY */
+.story-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    height: 100%;
+    scrollbar-width: none;
+    /* Hilangkan scrollbar Firefox */
+}
+
+.story-slider::-webkit-scrollbar {
+    display: none;
+    /* Hilangkan scrollbar Chrome/Safari */
+}
+
+.story-slide {
+    flex: 0 0 100%;
+    /* Setiap slide selebar layar */
+    width: 100%;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    box-sizing: border-box;
+}
+
+/* TIMELINE STYLING */
+.timeline-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.timeline-item {
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    padding-left: 20px;
+}
+
+.timeline-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.timeline-story {
+    font-size: 12px;
+    line-height: 1.7;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: justify;
+}
+
+.highlight-text {
+    color: #fff;
+    font-weight: 400;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 5px;
+}
+
+/* PETUNJUK GESER */
+.scroll-hint {
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-top: auto;
+    padding-bottom: 40px;
+    opacity: 0.5;
+    text-transform: uppercase;
+}
+
+/* SIGNATURE */
+.timeline-signature {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.signature-line {
+    width: 30px;
+    height: 1px;
+    background: white;
+    margin: 0 auto 15px;
+    opacity: 0.5;
+}
+
+.couple-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    letter-spacing: 5px;
+}
+
+@media (max-width: 480px) {
+    .story-slide {
+        padding: 10px 30px;
+    }
+
+    .timeline-date {
+        font-size: 20px;
+    }
+}

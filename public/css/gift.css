@@ -1,0 +1,123 @@
+/* public/css/gift.css */
+
+.wedding-gift-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    /* Memastikan satu halaman penuh */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 80px 20px;
+    margin: 0;
+}
+
+/* Background Image Full Content */
+.gift-bg-image {
+    position: absolute;
+    inset: 0;
+    /* Menutup seluruh area (top, right, bottom, left: 0) */
+    background: url('/images/SLM08723.JPG') no-repeat center;
+    background-size: cover;
+    z-index: 1;
+    transform: scale(1.1);
+    /* Sedikit zoom untuk keamanan frame */
+}
+
+.gift-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    /* Overlay gelap agar teks putih kontras */
+    z-index: 2;
+}
+
+.gift-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    color: white;
+}
+
+/* Styling Gambar Kecil */
+.gift-image-wrapper {
+    margin-bottom: 30px;
+}
+
+.gift-small-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    /* Membuat gambar melingkar */
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.section-title {
+    font-size: 14px;
+    letter-spacing: 0.4em;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.gift-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    font-weight: 300;
+    padding: 0 10%;
+}
+
+/* Bank Card Styling */
+.gift-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.bank-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bank-name {
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.account-number {
+    font-size: 20px;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.account-holder {
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.copy-btn {
+    background: white;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.copy-btn:active {
+    transform: scale(0.95);
+}

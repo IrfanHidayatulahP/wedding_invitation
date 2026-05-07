@@ -1,60 +1,62 @@
-(function () {
-    const splash = document.getElementById('splashScreen');
+// public/js/splash.js
+document.addEventListener('DOMContentLoaded', () => {
     const progressText = document.getElementById('progressText');
+    const imageContainer = document.getElementById('imageContainer');
+    const splashScreen = document.getElementById('splashScreen');
 
+    const photos = [
+        "SLM08533.JPG", "SLM08594.JPG", "SLM08669.JPG", "SLM08673.JPG",
+        "SLM08723.JPG", "SLM08743.JPG", "SLM08759.JPG", "SLM08846.JPG",
+        "SLM08874.JPG", "SLM09121.JPG", "SLM09131.JPG", "SLM09212.JPG",
+        "SLM09249.JPG", "SLM09279.JPG", "SLM09290.JPG", "SLM09292.JPG",
+        "SLM09307.JPG", "SLM09312.JPG", "SLM09319.JPG"
+    ];
+
+    let currentIdx = 0;
     let progress = 0;
+    const totalDuration = 10000; // 7 Detik
 
-    function easeOutCubic(t) {
-        return 1 - Math.pow(1 - t, 3);
-    }
+    function changeImage() {
+        const newImg = document.createElement('img');
+        newImg.src = `/images/${photos[currentIdx]}`;
 
-    const duration = 2500; // total waktu animasi (ms)
-    const startTime = Date.now();
+        imageContainer.appendChild(newImg);
 
-    function animate() {
-        const now = Date.now();
-        const elapsed = now - startTime;
-        const t = Math.min(elapsed / duration, 1);
+        setTimeout(() => {
+            newImg.style.opacity = "1";
+        }, 50);
 
-        // easing
-        progress = Math.floor(easeOutCubic(t) * 100);
-
-        if (progressText) {
-            progressText.textContent = `${progress}%`;
-        }
-
-        if (t < 1) {
-            requestAnimationFrame(animate);
-        } else {
-            finishLoading();
-        }
-    }
-
-    // splash.js (hanya ganti fungsi ini)
-
-    function finishLoading() {
-        if (splash) {
-            // Gunakan kelas tunggal yang sudah didefinisikan di CSS
-            splash.classList.add('fade-out');
-
-            // Berikan waktu transisi CSS selesai sebelum menghapus element
+        if (imageContainer.children.length > 1) {
+            const oldImg = imageContainer.children[0];
+            oldImg.style.opacity = "0";
             setTimeout(() => {
-                splash.remove();
-
-                // Opsional: Munculkan konten utama
-                const mainContent = document.getElementById('mainContent');
-                if (mainContent) {
-                    mainContent.classList.remove('opacity-0');
-                    // Pastikan Anda punya animasi fadeIn di CSS global Anda
-                    mainContent.classList.add('animate-fadeIn');
+                if (oldImg.parentNode === imageContainer) {
+                    imageContainer.removeChild(oldImg);
                 }
-            }, 700); // Samakan dengan durasi transition di CSS (.splash.fade-out)
+            }, 1200);
         }
+
+        currentIdx = (currentIdx + 1) % photos.length;
     }
 
-    // delay kecil biar terasa smooth
-    setTimeout(() => {
-        animate();
-    }, 300);
+    changeImage();
+    const imageInterval = setInterval(changeImage, 700);
 
-})();
+    const progressInterval = setInterval(() => {
+        progress++;
+        if (progressText) {
+            progressText.innerText = `${progress}%`;
+        }
+
+        if (progress >= 100) {
+            clearInterval(progressInterval);
+            clearInterval(imageInterval);
+
+            setTimeout(() => {
+                splashScreen.classList.add('fade-out');
+                // MODIFIKASI: Kita hapus baris unlocked body di sini agar menu burger 
+                // tidak muncul sebelum tombol "LET'S OPEN" diklik.
+            }, 600);
+        }
+    }, totalDuration / 100);
+});

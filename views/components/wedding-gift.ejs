@@ -1,25 +1,37 @@
-<div class="wedding-gift-section">
-    <div class="section-header">
-        <h2 class="section-title">WEDDING GIFT</h2>
-        <p class="gift-desc">
-            Your presence at our wedding is enough for us, but if you wish to give a gift,
-            we provide a digital wallet to make it easier for you.
-        </p>
-    </div>
+<!-- views/components/wedding-gift.ejs -->
+<section class="wedding-gift-section">
+    <!-- Background Utama -->
+    <div class="gift-bg-image"></div>
+    <div class="gift-overlay"></div>
 
-    <div class="gift-container">
-        <div class="bank-card">
-            <p class="bank-name">BANK MANDIRI</p>
-            <h3 class="account-number" id="accNum1">1234 5678 9012</h3>
-            <p class="account-holder">Imam Nandira</p>
-            <button class="copy-btn" onclick="copyText('accNum1', this)">COPY NUMBER</button>
+    <div class="gift-content">
+        <!-- Gambar Kecil Dekoratif -->
+        <div class="gift-image-wrapper">
+            <img src="/images/SLM09212.JPG" alt="Wedding Gift" class="gift-small-image">
         </div>
 
-        <div class="bank-card">
-            <p class="bank-name">BANK CENTRAL ASIA (BCA)</p>
-            <h3 class="account-number" id="accNum2">9876 5432 10</h3>
-            <p class="account-holder">Nandira Putri</p>
-            <button class="copy-btn" onclick="copyText('accNum2', this)">COPY NUMBER</button>
+        <div class="section-header">
+            <h2 class="section-title">WEDDING GIFT</h2>
+            <p class="gift-desc">
+                Your presence at our wedding is enough for us, but if you wish to give a gift,
+                we provide a digital wallet to make it easier for you.
+            </p>
+        </div>
+
+        <div class="gift-container">
+            <div class="bank-card">
+                <p class="bank-name">BANK MANDIRI</p>
+                <h3 class="account-number" id="accNum1">1234 5678 9012</h3>
+                <p class="account-holder">Imam Nandira</p>
+                <button class="copy-btn" onclick="copyText('accNum1', this)">COPY NUMBER</button>
+            </div>
+
+            <div class="bank-card">
+                <p class="bank-name">BANK CENTRAL ASIA (BCA)</p>
+                <h3 class="account-number" id="accNum2">9876 5432 10</h3>
+                <p class="account-holder">Nandira Putri</p>
+                <button class="copy-btn" onclick="copyText('accNum2', this)">COPY NUMBER</button>
+            </div>
         </div>
     </div>
-</div>
+</section>
