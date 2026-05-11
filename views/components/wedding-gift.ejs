@@ -19,19 +19,50 @@
         </div>
 
         <div class="gift-container">
-            <div class="bank-card">
-                <p class="bank-name">BANK MANDIRI</p>
-                <h3 class="account-number" id="accNum1">1234 5678 9012</h3>
-                <p class="account-holder">Imam Nandira</p>
+            <div class="bank-card taos:fade-left" data-taos-animation="true">
+                <p class=" bank-name">BANK Rakyat Indonesia (BRI)</p>
+                <h3 class="account-number" id="accNum1">560301014427538</h3>
+                <p class="account-holder">Ceria Permatasari</p>
                 <button class="copy-btn" onclick="copyText('accNum1', this)">COPY NUMBER</button>
             </div>
 
-            <div class="bank-card">
-                <p class="bank-name">BANK CENTRAL ASIA (BCA)</p>
-                <h3 class="account-number" id="accNum2">9876 5432 10</h3>
-                <p class="account-holder">Nandira Putri</p>
+            <div class="bank-card taos:fade-left" data-taos-animation="true">
+                <p class="bank-name">BANK SYARIAH INDONESIA (BSI)</p>
+                <h3 class="account-number" id="accNum2">7227464237</h3>
+                <p class="account-holder">Ceria Permatasari</p>
                 <button class="copy-btn" onclick="copyText('accNum2', this)">COPY NUMBER</button>
+            </div>
+
+            <div class="bank-card taos:fade-left" data-taos-animation="true">
+                <p class="bank-name">BANK CENTRAL ASIA (BCA)</p>
+                <h3 class="account-number" id="accNum3">7915296319</h3>
+                <p class="account-holder">Rizky Febriyanto Putra</p>
+                <button class="copy-btn" onclick="copyText('accNum3', this)">COPY NUMBER</button>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+    function copyText(elementId, btn) {
+        // 1. Ambil teks nomor rekening berdasarkan ID
+        const textToCopy = document.getElementById(elementId).innerText;
+
+        // 2. Gunakan Clipboard API untuk menyalin
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            // 3. Berikan feedback visual pada tombol
+            const originalText = btn.innerText;
+            btn.innerText = "COPIED!";
+            btn.classList.add('copied');
+
+            // 4. Kembalikan ke teks semula setelah 2 detik
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove('copied');
+            }, 2000);
+        }).catch(err => {
+            console.error('Gagal menyalin teks: ', err);
+            alert('Maaf, gagal menyalin nomor rekening.');
+        });
+    }
+</script>

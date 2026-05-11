@@ -5,6 +5,7 @@ const path = require('path');
 const sequelize = require('./config/sequelize');
 const invitationRoutes = require('./routes/invitationRoute');
 const adminRoutes = require('./routes/adminRoute');
+const wishesRoutes = require('./routes/wishesRoute');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,7 @@ app.use(express.static('public'));
 
 app.use('/', invitationRoutes);
 app.use('/admin', adminRoutes);
+app.use('/wishes', wishesRoutes);
 
 (async () => {
     try {

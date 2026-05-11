@@ -1,4 +1,3 @@
-<!-- views/components/wishes-display.ejs -->
 <section class="wishes-section wishes-display-page">
     <div class="wishes-bg-image"></div>
     <div class="wishes-overlay"></div>
@@ -8,19 +7,34 @@
             <h2 class="section-title">WISHES GALLERY</h2>
         </div>
 
-        <div class="wishes-display-container">
-            <div class="wish-item">
-                <h4 class="wish-name">Sahabat Imam</h4>
-                <p class="wish-text">Selamat menempuh hidup baru Imam & Nandira! Semoga menjadi keluarga yang sakinah
-                    mawaddah warahmah.</p>
-            </div>
-
-            <div class="wish-item">
-                <h4 class="wish-name">Keluarga Besar</h4>
-                <p class="wish-text">Barakallahu lakum wa baraka alaikum. Semoga lancar sampai hari H dan diberkahi
-                    setiap langkahnya.</p>
-            </div>
-            <!-- Item tambahan akan muncul di sini -->
+        <div class="wishes-slider" id="wishesSlider">
+            <% if (wishes && wishes.length> 0) {
+                // Kita bagi array wishes menjadi kelompok berisi 3 ucapan per slide
+                const perSlide = 4;
+                for (let i = 0; i < wishes.length; i +=perSlide) { const chunk=wishes.slice(i, i + perSlide); %>
+                    <div class="wishes-slide">
+                        <div class="wishes-grid">
+                            <% chunk.forEach(wish=> { %>
+                                <div class="wish-item">
+                                    <h4 class="wish-name">
+                                        <%= wish.name %>
+                                    </h4>
+                                    <p class="wish-text">
+                                        <%= wish.message %>
+                                    </p>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <% if (i + perSlide < wishes.length) { %>
+                            <div class="scroll-hint">Swipe for more →</div>
+                            <% } %>
+                    </div>
+                    <% } } else { %>
+                        <div class="wishes-slide">
+                            <p class="wish-text" style="text-align: center; width: 100%;">Belum ada ucapan. Jadilah yang
+                                pertama!</p>
+                        </div>
+                        <% } %>
         </div>
     </div>
 </section>

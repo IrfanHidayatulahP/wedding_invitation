@@ -1,5 +1,7 @@
 <aside class="right-panel">
-    <div class="menu-burger-container">
+    <%- include('../components/menu.ejs') %>
+
+    <div class="menu-burger-container" id="floatingBurger">
         <%- include('../components/menu-burger.ejs') %>
     </div>
 
@@ -28,3 +30,5 @@
         </div>
     </div>
 </aside>
+
+<script src="https://unpkg.com/taos@1.0.5/dist/taos.js"></script>

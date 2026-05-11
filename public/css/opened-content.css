@@ -3,17 +3,12 @@
 .opened-content-section {
     position: relative;
     width: 100%;
-    /* Gunakan min-height untuk fleksibilitas dan height 100vh untuk presisi */
     height: 100vh;
-    min-height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    /* Tetap di bawah */
     justify-content: center;
     overflow: hidden;
-    padding: 0;
-    margin: 0;
-    /* Tambahkan ini untuk menghilangkan celah line-height jika ada */
-    vertical-align: bottom;
 }
 
 .opened-content-bg {
@@ -38,14 +33,24 @@
     z-index: 2;
 }
 
+.quote-content {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    /* Padding internal kotak diperkecil sedikit agar tidak terlalu gemuk */
+    padding: 30px 25px 20px 25px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .quote-wrapper {
     position: relative;
     z-index: 10;
-    width: 90%;
-    /* Tingkatkan lebar agar tidak terlalu mengumpul di tengah */
+    width: 100%;
     max-width: 800px;
-    /* Lebarkan sedikit batas maksimalnya */
-    padding: 40px 20px;
+    /* Padding bawah dikurangi dari 80px menjadi 30px agar lebih turun */
+    /* Kita tambahkan env(safe-area-inset-bottom) untuk keamanan layar iPhone/HP modern */
+    padding: 0 20px calc(30px + env(safe-area-inset-bottom)) 20px;
 }
 
 .quote-section {
@@ -67,12 +72,13 @@
 }
 
 .arabic-text {
-    font-size: clamp(20px, 4vw, 28px);
-    /* Ukuran adaptif sesuai layar */
-    line-height: 2;
-    margin-bottom: 25px;
+    font-size: clamp(22px, 5vw, 32px);
+    line-height: 2.2;
+    margin-bottom: 20px;
+    color: #ffffff;
     font-family: 'Amiri', serif;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    /* Hilangkan text-shadow karena sudah ada background box */
+    text-shadow: none;
 }
 
 .quote-divider {
@@ -83,12 +89,14 @@
 }
 
 .quote-translation {
-    font-size: clamp(14px, 2vw, 16px);
+    font-size: clamp(14px, 2.5vw, 16px);
     line-height: 1.8;
-    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.9);
     font-weight: 300;
-    padding: 0 10%;
-    /* Memberikan jarak sisi agar teks terpusat indah */
+    padding: 0 5%;
+    /* Padding samping dikurangi agar teks lebih leluasa */
+    margin-bottom: 15px;
+    font-style: italic;
 }
 
 .quote-source {
@@ -96,4 +104,14 @@
     letter-spacing: 1px;
     text-transform: uppercase;
     opacity: 0.8;
+}
+
+@media (max-width: 480px) {
+    .quote-content {
+        padding: 30px 20px;
+    }
+
+    .arabic-text {
+        line-height: 1.8;
+    }
 }

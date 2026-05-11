@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'guests',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: "PRIMARY",

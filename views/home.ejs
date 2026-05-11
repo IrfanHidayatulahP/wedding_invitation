@@ -59,38 +59,54 @@
 
     <%- include('partials/splash') %>
 
-    <%- include('components/menu') %>
+        <%- include('components/menu') %>
 
-    <main id="mainContent" class="grid grid-cols-1 lg:grid-cols-[69.5fr_30.5fr] p-0 m-0">
-        <%- include('partials/left-panel') %>
-        <%- include('partials/right-panel') %>
-    </main>
+            <main id="mainContent" class="grid grid-cols-1 lg:grid-cols-[69.5fr_30.5fr] p-0 m-0">
+                <div class="hidden lg:block">
+                    <%- include('partials/left-panel') %>
+                </div>
 
-    <script>
-        const openBtn = document.getElementById('openBtn');
-        const mainContent = document.getElementById('mainContent');
-        const menuIcon = document.getElementById('menuIcon');
-        const menuOverlay = document.getElementById('menuOverlay');
-        const closeMenu = document.getElementById('closeMenu');
-        const menuBackdrop = document.querySelector('.menu-backdrop');
+                <%- include('partials/right-panel') %>
+            </main>
 
-        // Klik LET'S OPEN
-        if (openBtn) {
-            openBtn.addEventListener('click', () => {
-                mainContent.classList.add('is-opened');
+            <script>
+                const openBtn = document.getElementById('openBtn');
+                const mainContent = document.getElementById('mainContent');
+                const menuIcon = document.getElementById('menuIcon');
+                const menuOverlay = document.getElementById('menuOverlay');
+                const closeMenu = document.getElementById('closeMenu');
+                const menuBackdrop = document.querySelector('.menu-backdrop');
 
-                // Timeout untuk mengaktifkan scroll setelah animasi header selesai
-                setTimeout(() => {
-                    document.body.classList.add('is-unlocked');
-                }, 1000);
-            });
-        }
+                // Klik LET'S OPEN
+                if (openBtn) {
+                    openBtn.addEventListener('click', () => {
+                        // 1. Tambahkan class ke body (Pemicu utama untuk Menu & Scroll)
+                        document.body.classList.add('is-unlocked');
 
-    </script>
+                        // 2. Tambahkan class ke mainContent (Untuk layout grid/panel)
+                        mainContent.classList.add('is-opened');
 
-    <script src="/js/menu.js"></script>
+                        // 3. Smooth Scroll ke konten utama
+                        // Kita beri delay sedikit agar browser selesai merender layout baru
+                        setTimeout(() => {
+                            const welcomeSection = document.querySelector('.content-wrapper');
+                            if (welcomeSection) {
+                                welcomeSection.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+                        }, 50);
+                    });
+                }
 
-    <script src="/js/splash.js"></script>
+            </script>
+
+            <script src="/js/menu.js"></script>
+
+            <script src="/js/splash.js"></script>
+
+            <script src="https://unpkg.com/taos@1.0.5/dist/taos.js"></script>
 </body>
 
 </html>

@@ -1,13 +1,7 @@
-<!-- views/components/countdown.ejs -->
-<!-- views/components/countdown.ejs -->
 <section class="countdown-section">
-    <!-- Background Image Layer -->
     <div class="countdown-bg-image"></div>
-
-    <!-- Overlay Layer -->
     <div class="countdown-overlay"></div>
 
-    <!-- Content Layer -->
     <div class="countdown-content">
         <h2 class="countdown-title">ALMOST TIME FOR OUR CELEBRATION</h2>
 
@@ -31,7 +25,7 @@
         </div>
 
         <div class="action-container">
-            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Wedding+of+Imam+%26+Nandira&dates=20261209T010000Z/20261209T070000Z&details=Selamat+datang+di+pernikahan+kami!&location=Gedung+Pertemuan+Multiguna&sf=true&output=xml"
+            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Wedding+of+Rizky+%26+Ceria&dates=20260523T000000Z/20260523T070000Z&details=Selamat+datang+di+pernikahan+kami!&location=Desa+Pauh+Menang,+Kec.+Pamenang,+Kab.+Merangin,+Jambi&sf=true&output=xml"
                 target="_blank" class="save-date-btn">
                 &rarr; SAVE THE DATE
             </a>
@@ -40,8 +34,8 @@
 </section>
 
 <script>
-    // Set tanggal acara (9 Desember 2026)
-    const weddingDate = new Date("Dec 9, 2026 08:00:00").getTime();
+    // Gunakan format ISO agar lebih kompatibel di semua browser (Safari/Chrome/HP)
+    const weddingDate = new Date("2026-05-23T07:00:00").getTime();
 
     const countdownTimer = setInterval(function () {
         const now = new Date().getTime();
@@ -52,6 +46,7 @@
         const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const s = Math.floor((distance % (1000 * 60)) / 1000);
 
+        // Update UI
         document.getElementById("days").innerHTML = d.toString().padStart(2, '0');
         document.getElementById("hours").innerHTML = h.toString().padStart(2, '0');
         document.getElementById("minutes").innerHTML = m.toString().padStart(2, '0');
@@ -59,7 +54,7 @@
 
         if (distance < 0) {
             clearInterval(countdownTimer);
-            document.querySelector(".timer-grid").innerHTML = "HARI BAHAGIA TELAH TIBA";
+            document.querySelector(".timer-grid").innerHTML = "<h3 class='event-started'>HARI BAHAGIA TELAH TIBA</h3>";
         }
     }, 1000);
 </script>

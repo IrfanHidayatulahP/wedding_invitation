@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentIdx = 0;
     let progress = 0;
-    const totalDuration = 10000; // 7 Detik
+    const totalDuration = 7000; // 7 Detik
 
     function changeImage() {
         const newImg = document.createElement('img');
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     changeImage();
-    const imageInterval = setInterval(changeImage, 700);
+    const imageInterval = setInterval(changeImage, 230);
 
     const progressInterval = setInterval(() => {
         progress++;

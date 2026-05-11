@@ -7,12 +7,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* Tengah vertikal di State 1 */
     color: white;
     text-align: center;
     overflow-x: hidden;
     overflow-y: hidden;
-    /* Terkunci di awal */
     transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -55,33 +53,143 @@
 .is-opened .right-panel {
     overflow-y: auto;
     justify-content: flex-start;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
 .is-opened .right-inner-content {
-    padding-top: 15vh;
+    padding-top: 0;
     justify-content: flex-start;
+}
+
+.is-opened .right-panel section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    height: 100vh;
+    width: 100%;
+    position: relative;
 }
 
 .content-wrapper {
     display: none;
     width: 100%;
-    padding-bottom: 50px;
 }
 
 .is-opened .content-wrapper {
     display: block;
+    animation: blinkEffect 0.6s ease-out;
 }
 
-/* --- MENU BAR POSITIONING --- */
-.menu-burger-container {
+/* CSS Scroll Snap */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    /* Mencegah scroll ganda */
+}
+
+.main-scroll-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    height: 100vh;
+    width: 100%;
+}
+
+.hero-section {
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    z-index: 20;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.is-opened .hero-section {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    min-height: 0;
+    overflow: hidden;
     position: absolute;
-    top: 40px;
-    right: 40px;
-    z-index: 100;
+    pointer-events: none;
 }
 
-@keyframes fadeInContent {
+html.js :where([class*="taos:"]:not(.taos-init)) {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.wedding-header,
+.invitation-box {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
     to {
         opacity: 1;
+    }
+}
+
+@keyframes blinkEffect {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Penyesuaian khusus Mobile (max-width: 1023px) */
+@media (max-width: 1023px) {
+    body.is-unlocked {
+        overflow-y: auto;
+        /* Pastikan bisa scroll */
+    }
+
+    .right-panel {
+        width: 100%;
+        min-height: 100vh;
+        padding: 0;
+        /* Menghilangkan padding samping jika ada agar konten full */
+    }
+
+    .right-inner-content {
+        width: 100%;
+    }
+
+    /* Jika ada elemen di right-panel yang punya margin besar, kecilkan di sini */
+    .hero-section,
+    .content-wrapper {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .menu-burger-container {
+        top: 20px;
+        right: 20px;
     }
 }

@@ -1,11 +1,17 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/sequelize');
+
+// Inisialisasi Model
 const Guest = require('../models/guests')(sequelize, DataTypes);
 const Invitation = require('../models/invitations')(sequelize, DataTypes);
+const Wish = require('../models/wishes')(sequelize, DataTypes); // Pastikan inisialisasi seperti ini
 
 // 1. Fungsi untuk akses umum (Tanpa Slug)
 exports.renderHome = async (req, res) => {
     try {
+        // AMBIL DATA WISHES
+        const wishes = await Wish.findAll({ order: [['createdAt', 'DESC']] });
+
         let inviteMeta = await Invitation.findOne();
         const meta = inviteMeta ? inviteMeta.toJSON() : {
             wedding_title: 'THE WEDDING OF',
@@ -14,14 +20,14 @@ exports.renderHome = async (req, res) => {
             loading_text: 'LOADING...'
         };
 
-        // Kirim variabel secara langsung (FLAT)
         res.render('home', {
             guestName: 'Guest Name',
             weddingTitle: meta.wedding_title,
             coupleName: meta.couple_name,
             photoUrl: meta.photo_url,
             loadingText: meta.loading_text,
-            progress: 0
+            progress: 0,
+            wishes: wishes // Kirim ke view
         });
     } catch (error) {
         console.error(error);
@@ -33,7 +39,12 @@ exports.renderHome = async (req, res) => {
 exports.renderGuestInvitation = async (req, res) => {
     try {
         const { slug } = req.params;
-        const guest = await Guest.findOne({ where: { slug: slug } });
+
+        // AMBIL DATA TAMU & WISHES SECARA PARALEL (Lebih Cepat)
+        const [guest, wishes] = await Promise.all([
+            Guest.findOne({ where: { slug: slug } }),
+            Wish.findAll({ order: [['createdAt', 'DESC']] })
+        ]);
 
         if (!guest) return res.status(404).send('Undangan tidak ditemukan');
 
@@ -45,14 +56,14 @@ exports.renderGuestInvitation = async (req, res) => {
             loading_text: 'LOADING...'
         };
 
-        // Kirim variabel secara langsung (FLAT)
         res.render('home', {
             guestName: guest.name,
             weddingTitle: meta.wedding_title,
             coupleName: meta.couple_name,
             photoUrl: meta.photo_url,
             loadingText: meta.loading_text,
-            progress: 0
+            progress: 0,
+            wishes: wishes // Kirim ke view
         });
     } catch (error) {
         console.error(error);

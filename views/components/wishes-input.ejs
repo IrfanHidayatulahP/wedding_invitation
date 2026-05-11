@@ -14,11 +14,81 @@
 
         <div class="wishes-form-container">
             <form id="wishesForm" class="wishes-form">
-                <input type="text" name="name" placeholder="Nama Anda" class="wish-input" required>
-                <textarea name="message" placeholder="Tulis Ucapan & Doa..." class="wish-textarea" rows="4"
-                    required></textarea>
-                <button type="submit" class="send-btn">KIRIM UCAPAN</button>
+                <input type="text" name="name" id="wishName" placeholder="Nama Anda" class="wish-input" required>
+                <textarea name="message" id="wishMessage" placeholder="Tulis Ucapan & Doa..." class="wish-textarea"
+                    rows="4" required></textarea>
+                <button type="submit" class="send-btn" id="submitBtn">KIRIM UCAPAN</button>
             </form>
         </div>
     </div>
 </section>
+
+<script>
+    document.getElementById('wishesForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('submitBtn');
+        const nameInput = document.getElementById('wishName');
+        const messageInput = document.getElementById('wishMessage');
+
+        // UPDATE: Cari slider dan grid pertama
+        const slider = document.getElementById('wishesSlider');
+        const firstGrid = document.querySelector('.wishes-grid');
+
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'MENGIRIM...';
+
+        const formData = {
+            name: nameInput.value,
+            message: messageInput.value
+        };
+
+        try {
+            const response = await fetch('/wishes/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                // 1. Kosongkan Field
+                nameInput.value = '';
+                messageInput.value = '';
+
+                // 2. Logika Update DOM
+                if (firstGrid) {
+                    const newHtml = `
+                        <div class="wish-item" style="animation: fadeIn 0.8s ease">
+                            <h4 class="wish-name">${result.data.name}</h4>
+                            <p class="wish-text">${result.data.message}</p>
+                        </div>
+                    `;
+                    // Masukkan ke grid pertama (slide pertama) di posisi paling atas
+                    firstGrid.insertAdjacentHTML('afterbegin', newHtml);
+
+                    // Hapus pesan "Belum ada ucapan" jika ada
+                    const emptyMsg = document.querySelector('.wishes-slide > .wish-text');
+                    if (emptyMsg) emptyMsg.remove();
+                } else {
+                    // Jika struktur grid belum ada (kasus data awal kosong), 
+                    // cara paling aman adalah reload halaman agar slider terbentuk sempurna
+                    window.location.reload();
+                }
+
+                alert('Terima kasih atas ucapannya!');
+            } else {
+                alert('Gagal: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error Detail:', error);
+            alert('Terjadi kesalahan koneksi.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'KIRIM UCAPAN';
+        }
+    });
+</script>

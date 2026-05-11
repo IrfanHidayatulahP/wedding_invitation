@@ -1,19 +1,18 @@
-// Toggle Menu
-if (menuIcon && menuOverlay && closeMenu) {
-    // Fungsi Buka
-    menuIcon.addEventListener('click', () => {
-        menuOverlay.classList.add('active');
-    });
-
-    // Fungsi Tutup
-    const handleClose = () => {
-        menuOverlay.classList.remove('active');
-    };
-
-    closeMenu.addEventListener('click', handleClose);
-
-    // Menutup juga bisa dengan klik area hitam (backdrop)
-    if (menuBackdrop) {
-        menuBackdrop.addEventListener('click', handleClose);
-    }
+// Lebih baik error handling
+if (!menuIcon || !menuOverlay || !closeMenu) {
+    console.error('Menu elements not found');
+    return;
 }
+
+// Tambah stopPropagation
+menuIcon.addEventListener('click', (e) => {
+    e.stopPropagation();
+    menuOverlay.classList.add('active');
+});
+
+// Keyboard support (ESC untuk close)
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        menuOverlay.classList.remove('active');
+    }
+});
