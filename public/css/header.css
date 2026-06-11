@@ -47,6 +47,14 @@
     /* Ruang sebelum tombol */
 }
 
+.date {
+    font-size: 14px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
 /* Tombol Buka */
 .open-btn {
     background: white;
@@ -122,6 +130,13 @@
     right: 20px;
     z-index: 100;
     /* Supaya di atas gambar */
+}
+
+.hashtag {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    opacity: 0.8;
+    margin-top: 10px;
 }
 
 @keyframes cssSlideshow {

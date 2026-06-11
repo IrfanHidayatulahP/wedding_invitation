@@ -2,29 +2,66 @@ const slugify = require('slugify');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/sequelize');
 
-// Inisialisasi kedua model
+// Inisialisasi model
 const Guest = require('../models/guests')(sequelize, DataTypes);
 const Invitation = require('../models/invitations')(sequelize, DataTypes);
 
+// --- MIDDLEWARE KEAMANAN ---
+exports.authMiddleware = (req, res, next) => {
+    // Mengecek apakah session isAdmin ada dan bernilai true
+    if (req.session && req.session.isAdmin) {
+        next(); // Izinkan akses
+    } else {
+        // Jika tidak ada session, lempar ke halaman login
+        res.redirect('/admin/login');
+    }
+};
+
+// --- AUTH LOGIC ---
+exports.renderLogin = (req, res) => {
+    // Jika sudah login tapi iseng buka halaman login, arahkan ke generator
+    if (req.session.isAdmin) return res.redirect('/admin');
+
+    res.render('admin/login', { error: null });
+};
+
+exports.handleLogin = (req, res) => {
+    const { password } = req.body;
+    // Disarankan password ini ditaruh di .env (contoh: process.env.ADMIN_PASSWORD)
+    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+    if (password === ADMIN_PASSWORD) {
+        req.session.isAdmin = true; // Set session
+        res.redirect('/admin');
+    } else {
+        res.render('admin/login', { error: 'Password salah!' });
+    }
+};
+
+exports.logout = (req, res) => {
+    req.session.destroy((err) => {
+        if (err) console.log(err);
+        res.redirect('/admin/login');
+    });
+};
+
+// --- CORE LOGIC (Generator) ---
 exports.renderGenerator = async (req, res) => {
     try {
-        // 1. Ambil semua daftar tamu untuk tabel/list di sisi kanan
         const guests = await Guest.findAll({ order: [['createdAt', 'DESC']] });
 
-        // 2. Ambil URL host dinamis (http://localhost:3000)
-        const host = `${req.protocol}://${req.get('host')}`;
+        // Pastikan host menggunakan https jika sedang di hosting
+        const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+        const host = `${protocol}://${req.get('host')}`;
 
-        // 3. Ambil metadata undangan untuk desain panel sebelah kiri
         let inviteMeta = await Invitation.findOne();
 
-        // Fallback jika database invitations masih kosong agar tidak error
         const meta = inviteMeta ? inviteMeta.toJSON() : {
             wedding_title: 'THE WEDDING OF',
-            couple_name: 'IMAM & NANDIRA',
-            photo_url: '/images/couple.jpg'
+            couple_name: 'CERIA & RIZKY', // Sesuaikan dengan nama Anda
+            photo_url: '/images/SLM09249 (1).JPG'
         };
 
-        // 4. Render ke view admin/generator dengan semua data yang dibutuhkan
         res.render('admin/generator', {
             guests,
             host,
@@ -41,23 +78,28 @@ exports.renderGenerator = async (req, res) => {
 exports.createGuest = async (req, res) => {
     try {
         const { name } = req.body;
+        if (!name) return res.status(400).json({ success: false, message: 'Nama harus diisi' });
 
-        // Generate slug: "Budi Santoso" -> "budi-santoso"
         let slug = slugify(name, { lower: true, strict: true });
-
-        // Cek duplikasi slug agar link tetap unik
         const existing = await Guest.findOne({ where: { slug } });
+
         if (existing) {
-            // Jika ada yang sama, tambahkan angka acak di belakangnya
             slug = `${slug}-${Math.floor(Math.random() * 1000)}`;
         }
 
-        await Guest.create({ name, slug });
+        const newGuest = await Guest.create({ name, slug });
 
-        // Kembali ke halaman generator setelah berhasil simpan
-        res.redirect('/admin/generate');
+        // Gunakan logika protocol yang sama agar link tamu otomatis HTTPS
+        const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+        const host = `${protocol}://${req.get('host')}`;
+
+        res.json({
+            success: true,
+            guest: newGuest,
+            host: host
+        });
     } catch (error) {
         console.error("Create Guest Error:", error);
-        res.status(500).send(error.message);
+        res.status(500).json({ success: false, message: error.message });
     }
 };

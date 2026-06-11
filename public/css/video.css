@@ -91,27 +91,38 @@
     background: #000;
     overflow: hidden;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .content-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    pointer-events: none;
 }
 
 /* Overlay Kontrol Utama */
 .video-controls-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
     cursor: pointer;
-    transition: all 0.4s ease;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
+    -webkit-transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.video-controls-overlay.is-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 
 /* State: Saat Video Diputar (Sembunyikan) */
@@ -120,30 +131,29 @@
     visibility: hidden;
 }
 
-/* State: Munculkan Kembali Saat Hover di atas Container */
-.video-player-container:hover .video-controls-overlay {
-    opacity: 1;
-    visibility: visible;
-    background: rgba(0, 0, 0, 0.5);
-}
-
 /* 5. TOMBOL & IKON */
 .play-pause-btn {
     width: 60px;
     height: 60px;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease, background 0.3s;
+    pointer-events: none;
+    transition: transform 0.2s ease, background 0.3s ease;
 }
 
 .play-pause-btn:hover {
     transform: scale(1.1);
     background: rgba(255, 255, 255, 0.3);
+}
+
+.play-pause-btn:active {
+    transform: scale(0.9);
 }
 
 .icon-svg {
@@ -170,18 +180,133 @@
     font-style: italic;
 }
 
-/* 7. RESPONSIVE MOBILE */
-@media (max-width: 992px) {
-    .split-left {
-        display: none;
+/* --- OVERRIDE GLOBAL UNTUK MOBILE --- */
+@media (max-width: 1023px) {
+
+    html,
+    body {
+        height: 100dvh !important;
+        overflow: hidden;
     }
 
-    /* Tetap pertahankan split-layout logic */
+    .video-section {
+        height: 100dvh !important;
+        width: 100% !important;
+        position: relative;
+    }
+
+    .split-layout {
+        height: 100%;
+        width: 100%;
+    }
+
+    .split-right {
+        width: 100% !important;
+        flex: none !important;
+    }
+
+    .split-bg-image {
+        height: 100% !important;
+        width: 100% !important;
+        position: absolute;
+        inset: 0;
+        transform: scale(1.1);
+        background-size: cover !important;
+        background-position: center center !important;
+        z-index: 1;
+    }
+
     .video-content-wrapper {
-        padding: 0 25px;
+        height: 100%;
+        padding: 0 25px !important;
+        justify-content: center;
+        /* Konten tetap di tengah secara vertikal */
+        z-index: 10;
+    }
+
+    /* Penyesuaian Header */
+    .video-header {
+        margin-bottom: 25px;
+        /* Perkecil jarak ke video */
+    }
+
+    .video-subtitle {
+        font-size: 9px;
+        letter-spacing: 0.4em;
+        margin-bottom: 8px;
     }
 
     .video-title {
         font-size: 20px;
+        letter-spacing: 0.15em;
     }
+
+    /* Video Player Mobile */
+    .video-player-container {
+        max-width: 100%;
+        /* Gunakan lebar penuh layar mobile */
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+    }
+
+    .play-pause-btn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .icon-svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Penyesuaian Kutipan */
+    .video-quote-box {
+        margin-top: 25px;
+        /* Jarak dari bawah video */
+        max-width: 300px;
+    }
+
+    .handwriting-text {
+        font-size: 16px;
+        line-height: 1.5;
+        opacity: 0.9;
+    }
+}
+
+@media (hover: none) {
+    .video-player-container:hover .video-controls-overlay {
+        opacity: 1;
+        visibility: visible;
+        background: transparent !important;
+    }
+}
+
+/* Fix khusus untuk HP dengan layar sangat pendek */
+@media (max-height: 660px) and (orientation: portrait) {
+    .video-header {
+        margin-bottom: 15px;
+    }
+
+    .video-title {
+        font-size: 18px;
+    }
+
+    .video-quote-box {
+        margin-top: 15px;
+    }
+
+    .handwriting-text {
+        font-size: 14px;
+    }
+
+    .play-pause-btn {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+.video-player-container .video-controls-overlay.is-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
 }

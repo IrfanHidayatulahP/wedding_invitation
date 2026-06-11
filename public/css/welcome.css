@@ -1,9 +1,13 @@
 /* public/css/welcome.css */
 
+* {
+    box-sizing: border-box;
+}
+
 .welcome-hero {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -66,6 +70,7 @@
 
 .welcome-date {
     font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
     font-size: 11px;
     letter-spacing: 0.2em;
     font-weight: 300;
@@ -131,4 +136,85 @@
     z-index: 10;
     text-align: center;
     color: white;
+}
+
+/* --- MOBILE VIEW ADJUSTMENT (Max-width: 1023px) --- */
+@media (max-width: 1023px) {
+
+    html,
+    body {
+        min-height: 100dvh !important;
+        height: 100dvh !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden;
+    }
+
+    .welcome-hero {
+        position: relative;
+        height: 100dvh !important;
+        width: 100% !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        z-index: 10;
+        overflow: hidden;
+    }
+
+    .welcome-bg {
+        height: 100% !important;
+        width: 100% !important;
+        position: absolute;
+        inset: 0;
+        background-size: cover !important;
+        background-position: center center !important;
+    }
+
+    .welcome-text-wrapper {
+        margin-top: 20vh;
+        width: 100%;
+        padding: 0 20px;
+        z-index: 20;
+    }
+
+    .welcome-couple-name {
+        font-size: clamp(32px, 10vw, 42px);
+        margin-bottom: 8px;
+    }
+
+    .welcome-label {
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+    }
+
+    .welcome-date {
+        font-size: 10px;
+    }
+
+    .scroll-indicator {
+        bottom: 30px;
+    }
+
+    .scroll-circle {
+        width: 32px;
+        height: 32px;
+    }
+
+    .taos\:opacity-0 {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* Fix tambahan untuk orientasi landscape di HP */
+@media (max-height: 500px) and (orientation: landscape) {
+    .welcome-text-wrapper {
+        margin-top: 5vh;
+    }
+
+    .welcome-couple-name {
+        font-size: 28px;
+    }
 }

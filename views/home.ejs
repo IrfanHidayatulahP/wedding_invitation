@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wedding Invitation - Imam & Nandira</title>
+    <title>Wedding Invitation - CERIA & RIZKY</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -46,7 +46,6 @@
         height: 100%;
         width: 100%;
         overflow: hidden;
-        /* Kunci scroll global di awal */
     }
 
     /* Saat terbuka, izinkan scroll hanya jika konten melebih tinggi layar */
@@ -69,6 +68,12 @@
                 <%- include('partials/right-panel') %>
             </main>
 
+            <audio id="bgMusic" loop>
+                <source src="/music/If you love me for me (Barbie)  Karaoke  Instrumental  DUET Sing along.mp3"
+                    type="audio/mpeg">
+                Browser Anda tidak mendukung elemen audio.
+            </audio>
+
             <script>
                 const openBtn = document.getElementById('openBtn');
                 const mainContent = document.getElementById('mainContent');
@@ -76,29 +81,73 @@
                 const menuOverlay = document.getElementById('menuOverlay');
                 const closeMenu = document.getElementById('closeMenu');
                 const menuBackdrop = document.querySelector('.menu-backdrop');
+                const bgMusic = document.getElementById('bgMusic');
+
+                let isMusicStarted = false;
 
                 // Klik LET'S OPEN
                 if (openBtn) {
                     openBtn.addEventListener('click', () => {
-                        // 1. Tambahkan class ke body (Pemicu utama untuk Menu & Scroll)
+                        if (bgMusic) {
+                            // Safari butuh interaksi user yang jelas untuk memulai audio
+                            const playPromise = bgMusic.play();
+
+                            if (playPromise !== undefined) {
+                                playPromise.then(() => {
+                                    isMusicStarted = true;
+                                }).catch(error => {
+                                    console.log("Safari auto-play ditahan:", error);
+                                });
+                            }
+                        }
+
                         document.body.classList.add('is-unlocked');
+                        document.getElementById('mainContent').classList.add('is-opened');
 
-                        // 2. Tambahkan class ke mainContent (Untuk layout grid/panel)
-                        mainContent.classList.add('is-opened');
-
-                        // 3. Smooth Scroll ke konten utama
-                        // Kita beri delay sedikit agar browser selesai merender layout baru
                         setTimeout(() => {
                             const welcomeSection = document.querySelector('.content-wrapper');
                             if (welcomeSection) {
-                                welcomeSection.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'start'
-                                });
+                                welcomeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             }
                         }, 50);
                     });
                 }
+
+                // Penanganan Visibility API yang Responsif untuk Safari
+                const handleVisibilityChange = () => {
+                    if (!bgMusic || !isMusicStarted) return;
+
+                    if (document.hidden || document.webkitHidden) {
+                        // Gunakan webkitHidden untuk kompatibilitas Safari lama
+                        bgMusic.pause();
+                    } else {
+                        // Saat kembali ke tab, pastikan hanya play jika user sudah klik "Let's Open"
+                        if (document.body.classList.contains('is-unlocked')) {
+                            const playPromise = bgMusic.play();
+                            if (playPromise !== undefined) {
+                                playPromise.catch(() => {
+                                    // Jika Safari memblokir resume otomatis (kebijakan low power mode)
+                                    console.log("Resume audio diblokir Safari");
+                                });
+                            }
+                        }
+                    }
+                };
+
+                // Tambahkan listener untuk berbagai prefix browser
+                document.addEventListener("visibilitychange", handleVisibilityChange);
+                document.addEventListener("webkitvisibilitychange", handleVisibilityChange);
+
+                // Tambahan untuk Safari iOS: Pause jika user meminimalkan browser (menekan tombol home)
+                window.addEventListener('pagehide', () => {
+                    if (bgMusic) bgMusic.pause();
+                });
+
+                window.addEventListener('pageshow', () => {
+                    if (bgMusic && isMusicStarted && document.body.classList.contains('is-unlocked')) {
+                        bgMusic.play();
+                    }
+                });
 
             </script>
 

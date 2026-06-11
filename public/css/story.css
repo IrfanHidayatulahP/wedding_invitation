@@ -144,12 +144,118 @@
     letter-spacing: 5px;
 }
 
-@media (max-width: 480px) {
+/* --- OVERRIDE GLOBAL UNTUK MOBILE --- */
+@media (max-width: 1023px) {
+
+    html,
+    body {
+        height: 100dvh !important;
+        overflow: hidden;
+    }
+
+    .love-story-section {
+        height: 100dvh !important;
+        width: 100% !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .story-bg-image {
+        height: 100% !important;
+        width: 100% !important;
+        position: absolute;
+        inset: 0;
+        transform: scale(1.1);
+        background-size: cover !important;
+        background-position: center center !important;
+        z-index: 1;
+    }
+
+    .story-content {
+        height: 100% !important;
+        padding-top: 40px;
+        /* Sedikit lebih rapat ke atas di mobile */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .section-header {
+        margin-bottom: 15px;
+        z-index: 10;
+    }
+
+    /* KONSEP SLIDER: Memastikan konten tetap bisa di-scroll secara internal jika teks panjang */
+    .story-slider {
+        flex: 1;
+        /* Mengambil sisa ruang layar */
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        z-index: 10;
+    }
+
     .story-slide {
-        padding: 10px 30px;
+        height: 100%;
+        padding: 10px 25px calc(20px + env(safe-area-inset-bottom)) 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        /* Tetap mulai dari atas */
+        overflow-y: auto;
+        /* Jika teks sangat panjang, slide ini bisa di-scroll vertikal */
+    }
+
+    .timeline-grid {
+        max-width: 100%;
+        /* Lebar penuh di mobile */
+        gap: 20px;
+    }
+
+    .timeline-item {
+        padding-left: 15px;
+        border-left: 1px solid rgba(255, 255, 255, 0.4);
     }
 
     .timeline-date {
         font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    .timeline-story {
+        font-size: 12px;
+        line-height: 1.6;
+        text-align: left;
+    }
+
+    .highlight-text {
+        padding: 12px;
+        margin-top: 5px;
+        font-size: 12px;
+    }
+
+    .scroll-hint {
+        padding-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .timeline-signature {
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+}
+
+/* Fix untuk layar yang sangat pendek (agar teks tidak terpotong) */
+@media (max-height: 660px) and (orientation: portrait) {
+    .section-title {
+        font-size: 9px;
+    }
+
+    .timeline-date {
+        font-size: 18px;
+    }
+
+    .timeline-story {
+        font-size: 12px;
     }
 }

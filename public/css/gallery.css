@@ -81,21 +81,31 @@
     z-index: 2;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     pointer-events: none;
     text-align: center;
     color: white;
+    padding-top: 100px;
+}
+
+.gallery-text-stack {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .section-title {
-    font-size: 14px;
+    font-size: 16px;
     letter-spacing: 0.6em;
     margin-bottom: 20px;
 }
 
 .gallery-desc {
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 300;
     max-width: 280px;
     line-height: 1.6;
@@ -113,4 +123,95 @@
     height: 20vh;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
     z-index: 3;
+}
+
+/* --- OVERRIDE GLOBAL UNTUK MOBILE --- */
+@media (max-width: 1023px) {
+
+    html,
+    body {
+        height: 100dvh !important;
+        overflow: hidden;
+    }
+
+    .gallery-background-section {
+        height: 100dvh !important;
+        width: 100% !important;
+        position: relative;
+    }
+
+    .bg-slider {
+        /* Kembalikan ke auto agar user mobile bisa swipe manual dengan nyaman */
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .bg-item {
+        /* Pastikan gambar memenuhi layar mobile tanpa terdistorsi */
+        background-position: center center !important;
+        filter: brightness(0.75);
+        /* Sedikit lebih terang di mobile agar detail foto terlihat */
+    }
+
+    /* Navigasi Tombol Mobile */
+    .gallery-nav {
+        padding: 0 10px;
+        /* Perkecil padding agar tombol lebih ke pinggir */
+    }
+
+    .nav-btn {
+        width: 38px;
+        /* Ukuran tombol lebih mungil di mobile */
+        height: 38px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Teks Overlay */
+    .section-title {
+        font-size: 11px;
+        letter-spacing: 0.5em;
+        margin-bottom: 12px;
+    }
+
+    .gallery-desc {
+        font-size: 12px;
+        max-width: 240px;
+        /* Batasi lebar teks agar tidak menumpuk ke tombol */
+        line-height: 1.5;
+        padding: 0 15px;
+    }
+
+    .bottom-shade {
+        height: 25dvh;
+        /* Gradasi sedikit lebih tinggi untuk kesan cinematic */
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    }
+
+    .gallery-content-overlay {
+        /* Sesuaikan jarak atas untuk layar HP agar lebih proporsional */
+        padding-top: 60px !important;
+    }
+
+    .gallery-desc {
+        max-width: 280px;
+        /* Sedikit dilebarkan karena di atas biasanya ruang lebih lega */
+    }
+}
+
+/* Fix untuk layar HP yang sangat pendek agar teks tidak menabrak tombol navigasi */
+@media (max-height: 600px) and (orientation: portrait) {
+    .gallery-desc {
+        font-size: 11px;
+        max-width: 200px;
+    }
+
+    .section-title {
+        margin-bottom: 8px;
+    }
 }

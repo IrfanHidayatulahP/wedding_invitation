@@ -7,17 +7,18 @@
         <div class="section-header">
             <h2 class="section-title">GIVE A WISH</h2>
             <p class="wishes-desc">
-                Berikan doa dan ucapan terbaik Anda untuk Imam & Nandira agar menjadi keluarga yang bahagia dan
-                langgeng.
+                Kindly share your prayers and best wishes for <br>
+                Ceria & Rizky as they begin a happy and everlasting
+                journey together.
             </p>
         </div>
 
         <div class="wishes-form-container">
             <form id="wishesForm" class="wishes-form">
-                <input type="text" name="name" id="wishName" placeholder="Nama Anda" class="wish-input" required>
-                <textarea name="message" id="wishMessage" placeholder="Tulis Ucapan & Doa..." class="wish-textarea"
-                    rows="4" required></textarea>
-                <button type="submit" class="send-btn" id="submitBtn">KIRIM UCAPAN</button>
+                <input type="text" name="name" id="wishName" placeholder="Your Name" class="wish-input" required>
+                <textarea name="message" id="wishMessage" placeholder="Leave Your Wishes and Prayers"
+                    class="wish-textarea" rows="4" required></textarea>
+                <button type="submit" class="send-btn" id="submitBtn">SEND YOUR WISHES</button>
             </form>
         </div>
     </div>
@@ -88,7 +89,7 @@
             alert('Terjadi kesalahan koneksi.');
         } finally {
             submitBtn.disabled = false;
-            submitBtn.innerText = 'KIRIM UCAPAN';
+            submitBtn.innerText = 'SEND YOUR WISHES';
         }
     });
 </script>

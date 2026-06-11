@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin - Access Control</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0b0b0b;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+            outline: none;
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen p-6">
+
+    <div class="login-card w-full max-w-md p-10 rounded-3xl shadow-2xl">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-light tracking-[0.2em] uppercase">Admin Access</h2>
+            <p class="text-xs opacity-40 mt-3 tracking-widest">SILAHKAN MASUKKAN PASSWORD ANDA</p>
+        </div>
+
+        <% if (error) { %>
+            <div
+                class="bg-red-500/10 border border-red-500/20 text-red-500 text-[11px] p-4 rounded-xl mb-6 text-center tracking-wider">
+                <%= error %>
+            </div>
+            <% } %>
+
+                <form action="/admin/login" method="POST" class="space-y-6">
+                    <div>
+                        <input type="password" name="password" placeholder="Admin Password" required
+                            class="input-field w-full p-4 rounded-xl text-center text-lg tracking-[0.5em]">
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-white text-black py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-gray-200 transition duration-300 active:scale-[0.98]">
+                        Masuk ke Panel
+                    </button>
+                </form>
+
+                <div class="mt-12 text-center">
+                    <a href="/" class="text-[10px] opacity-30 hover:opacity-100 transition uppercase tracking-[0.2em]">
+                        ← Kembali ke Beranda
+                    </a>
+                </div>
+    </div>
+
+</body>
+
+</html>

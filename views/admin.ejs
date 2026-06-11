@@ -58,23 +58,18 @@
 </style>
 
 <script>
-    function generateLink() {
-        const name = document.getElementById('guestNameInput').value;
-        if (!name) return alert('Ketik nama dulu ya!');
-
-        // Encode nama agar aman di URL (spasi jadi %20)
-        const encodedName = encodeURIComponent(name);
-        const baseUrl = window.location.origin;
-        const fullLink = `${baseUrl}/?to=${encodedName}`;
-
-        document.getElementById('generatedLink').value = fullLink;
-        document.getElementById('resultBox').style.display = 'block';
-    }
-
-    function copyAdminLink() {
+    function copyAdminLink(e) {
         const linkInput = document.getElementById('generatedLink');
+        const btn = e.currentTarget;
+        
         linkInput.select();
-        document.execCommand('copy');
-        alert('Link berhasil disalin!');
+        linkInput.setSelectionRange(0, 99999);
+        
+        try {
+            document.execCommand('copy');
+            alert('Link berhasil disalin!');
+        } catch (err) {
+            alert('Gagal menyalin link.');
+        }
     }
 </script>

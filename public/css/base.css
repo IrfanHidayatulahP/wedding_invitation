@@ -51,6 +51,7 @@
 
 /* --- STATE LOGIC --- */
 .is-opened .right-panel {
+    height: 100dvh;
     overflow-y: auto;
     justify-content: flex-start;
     scroll-snap-type: y mandatory;
@@ -172,7 +173,6 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
 
     .right-panel {
         width: 100%;
-        min-height: 100vh;
         padding: 0;
         /* Menghilangkan padding samping jika ada agar konten full */
     }

@@ -47,16 +47,20 @@
 
 /* Styling Gambar Kecil */
 .gift-image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 15px;
+    width: 100%;
 }
 
 .gift-small-image {
     width: 90px;
-    /* Perkecil dari 120px */
     height: 90px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid rgba(255, 255, 255, 0.3);
+    display: block;
 }
 
 .section-title {
@@ -132,4 +136,156 @@
 
 .gift-content::-webkit-scrollbar {
     display: none;
+}
+
+#giftAddress {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    font-size: 10px;
+}
+
+/* --- OVERRIDE GLOBAL UNTUK MOBILE --- */
+@media (max-width: 1023px) {
+
+    html,
+    body {
+        height: 100dvh !important;
+        overflow: hidden;
+    }
+
+    .wedding-gift-section {
+        height: 100dvh !important;
+        width: 100% !important;
+        padding: 20px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .gift-bg-image {
+        height: 100% !important;
+        width: 100% !important;
+        position: absolute;
+        inset: 0;
+        transform: scale(1.1);
+        background-size: cover !important;
+        background-position: center center !important;
+        z-index: 1;
+    }
+
+    .gift-content {
+        height: auto;
+        max-height: 95dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px 0;
+        z-index: 10;
+        /* Jika layar sangat pendek, konten bank bisa di-scroll secara internal */
+        overflow-y: auto;
+        scrollbar-width: none;
+    }
+
+    .gift-content::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Penyesuaian Elemen Visual */
+    .gift-image-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 12px;
+    }
+
+    .gift-small-image {
+        width: 75px;
+        height: 75px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .section-title {
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        margin-bottom: 8px;
+    }
+
+    .gift-desc {
+        font-size: 11px;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        padding: 0 10px;
+        opacity: 0.85;
+    }
+
+    /* Bank Card Optimization */
+    .gift-container {
+        gap: 10px;
+        /* Jarak antar kartu bank dipersempit */
+    }
+
+    .bank-card {
+        padding: 12px 15px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+    }
+
+    .bank-name {
+        font-size: 9px;
+        margin-bottom: 4px;
+        opacity: 0.7;
+    }
+
+    .account-number {
+        font-size: 16px;
+        /* Ukuran angka dioptimalkan */
+        letter-spacing: 1px;
+        margin-bottom: 2px;
+    }
+
+    .account-holder {
+        font-size: 11px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .copy-btn {
+        padding: 6px 20px;
+        font-size: 8px;
+        letter-spacing: 1px;
+        font-weight: 600;
+    }
+
+    #giftAddress {
+        font-size: 10px !important;
+        padding: 0 10px;
+        word-break: break-word;
+    }
+}
+
+/* Penyesuaian khusus layar iPhone SE atau HP layar kecil lainnya */
+@media (max-height: 670px) and (orientation: portrait) {
+    .gift-small-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .gift-desc {
+        display: none;
+        /* Hilangkan deskripsi jika layar benar-benar sempit agar kartu bank tetap terlihat */
+    }
+
+    .gift-container {
+        gap: 8px;
+    }
+
+    .bank-card {
+        padding: 10px;
+    }
 }

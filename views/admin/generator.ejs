@@ -7,116 +7,316 @@
     <title>Admin Panel - <%= weddingTitle %>
     </title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
     <style>
-        /* Tambahan style khusus admin agar input terlihat modern */
+        :root {
+            --bg-dark: #0b0b0b;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .glass-panel {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+        }
+
         .admin-input {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
             color: white;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .admin-input:focus {
-            border-color: rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
             outline: none;
-            background: rgba(255, 255, 255, 0.1);
         }
 
         .custom-scrollbar::-webkit-scrollbar {
-            width: 5px;
+            width: 4px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
+        }
+
+        .right-bg-static {
+            position: absolute;
+            inset: 0;
+            background-image: url('/images/SLM09249.JPG');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .new-guest-anim {
+            animation: slideInUp 0.5s ease-out forwards;
         }
     </style>
 </head>
 
-<body class="bg-[#0b0b0b] text-white min-h-screen overflow-x-hidden">
+<body class="flex items-center justify-center p-0 lg:p-8">
 
-    <div class="grid grid-cols-1 lg:grid-cols-[69.5fr_30.5fr] min-h-screen">
+    <main
+        class="relative w-full h-full lg:h-[90vh] max-w-[1600px] grid grid-cols-1 lg:grid-cols-12 glass-panel rounded-none lg:rounded-[32px] overflow-hidden shadow-2xl">
 
-        <section class="relative hidden lg:flex items-center justify-center overflow-hidden border-r border-white/10">
+        <section
+            class="relative hidden lg:flex lg:col-span-7 items-center justify-center overflow-hidden border-r border-white/5">
             <div class="absolute inset-0 z-0">
-                <img src="<%= photoUrl %>" class="w-full h-full object-cover opacity-40" alt="Background">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#0b0b0b] via-transparent to-transparent"></div>
+                <img src="/images/SLM09307.JPG" class="w-full h-full object-cover opacity-60" alt="Cover">
+                <div class="absolute inset-0 bg-gradient-to-tr from-[#0b0b0b] via-transparent to-transparent"></div>
             </div>
-            <div class="relative z-10 text-center">
-                <p class="tracking-[0.3em] text-sm mb-4 opacity-70">
+
+            <div class="relative z-10 text-center px-12">
+                <p class="tracking-[0.5em] text-xs uppercase mb-4 opacity-50">
                     <%= weddingTitle %>
                 </p>
-                <h1 class="text-5xl font-serif uppercase tracking-widest">
-                    <%= coupleName %>
+                <h1 class="text-6xl font-serif uppercase tracking-widest leading-tight mb-2">
+                    <%= coupleName.split('&').join(' & ') %>
                 </h1>
+                <div class="w-12 h-[1px] bg-white/20 mx-auto mt-8"></div>
             </div>
         </section>
 
-        <section class="p-8 lg:p-12 flex flex-col h-screen">
-            <header class="mb-12">
-                <h2 class="text-2xl font-light tracking-widest uppercase">Link Generator</h2>
-                <p class="text-xs opacity-50 mt-2">Kelola daftar tamu dan link undangan digital</p>
-            </header>
+        <section class="relative lg:col-span-5 flex flex-col h-full bg-black/20 overflow-hidden">
 
-            <form action="/admin/generate" method="POST" class="mb-10">
-                <div class="flex flex-col gap-4">
-                    <input type="text" name="name" placeholder="Masukkan Nama Tamu..."
-                        class="admin-input p-4 rounded-lg w-full text-lg" required>
-                    <button type="submit"
-                        class="bg-white text-black py-4 rounded-lg font-bold hover:bg-gray-200 transition duration-300 tracking-widest uppercase text-sm">
-                        Generate Link
-                    </button>
-                </div>
-            </form>
+            <div class="right-bg-static"></div>
 
-            <div class="flex-1 overflow-y-auto custom-scrollbar pr-2">
-                <h3 class="text-xs uppercase tracking-widest mb-6 opacity-40">Daftar Tamu Terdaftar</h3>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0b0b0b]/80 to-[#0b0b0b] z-[1]"></div>
 
-                <div class="space-y-4">
-                    <% guests.forEach(guest=> { %>
-                        <div
-                            class="admin-input p-5 rounded-xl border border-white/5 hover:border-white/20 transition group">
-                            <div class="flex justify-between items-start mb-3">
-                                <span class="font-medium text-gray-200">
-                                    <%= guest.name %>
-                                </span>
-                                <span class="text-[10px] opacity-30 italic">#<%= guest.id %></span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <input type="text" readonly value="<%= host %>/i/<%= guest.slug %>"
-                                    id="link-<%= guest.id %>"
-                                    class="bg-black/40 text-[11px] p-2 rounded flex-1 border-none text-gray-400">
-                                <button onclick="copyLink('link-<%= guest.id %>')"
-                                    class="text-[10px] bg-white/10 hover:bg-white hover:text-black px-3 py-2 rounded transition font-bold uppercase">
-                                    Copy
-                                </button>
-                            </div>
-                        </div>
-                        <% }) %>
-                </div>
+            <div class="relative z-10 flex flex-col h-full p-8 lg:p-12">
+                <header class="flex justify-between items-start mb-10">
+                    <div>
+                        <h2 class="text-2xl font-light tracking-tighter">Guest Manager</h2>
+                        <p class="text-[10px] opacity-40 uppercase tracking-[0.2em] mt-1 text-white/60">Generate digital
+                            invitation links</p>
+                    </div>
+                    <a href="/admin/logout"
+                        class="group flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 hover:bg-red-500/10 hover:border-red-500/50 transition duration-300">
+                        <span class="text-[10px] uppercase tracking-widest group-hover:text-red-400">Logout</span>
+                    </a>
+                </header>
+
+                <form id="guestForm" class="mb-10">
+                    <div class="flex flex-col gap-3">
+                        <input type="text" id="guestNameInput" name="name" placeholder="Nama Tamu..."
+                            class="admin-input p-5 rounded-2xl w-full text-base placeholder:opacity-20" required
+                            autocomplete="off">
+                        <button type="submit" id="submitBtn"
+                            class="bg-white text-black py-4 rounded-2xl font-bold hover:bg-gray-200 active:scale-[0.98] transition duration-300 tracking-widest uppercase text-xs shadow-lg">
+                            Generate Now
+                        </button>
+                    </div>
+                </form>
+
+                <div class="flex-1 flex flex-col overflow-hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-[10px] uppercase tracking-[0.3em] opacity-30">Recent Guests</h3>
+                        <span class="text-[10px] px-2 py-1 bg-white/5 rounded-md border border-white/5 opacity-40">
+                            <%= guests.length %> Tamu
+                        </span>
+                    </div>
+
+                    <div id="guestListContainer" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-4">
+                        <% guests.forEach(guest=> { %>
+                            <div
+                                class="admin-input p-5 rounded-2xl hover:bg-white/[0.07] transition group relative overflow-hidden">
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="text-sm font-semibold tracking-wide text-white/90 uppercase">
+                                        <%= guest.name %>
+                                    </span>
+                                    <span class="text-[9px] opacity-20">
+                                        <%= new Date(guest.createdAt).toLocaleDateString() %>
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="text" readonly value="<%= host %>/i/<%= guest.slug %>"
+                                        id="link-<%= guest.id %>"
+                                        class="bg-black/40 text-[10px] p-3 rounded-xl flex-1 border-none text-white/40 font-mono tracking-tighter">
+                                    
+                                    <button onclick="copyLink(event, ' link-<%=guest.id %>')"
+                        class="text-[10px] bg-white/5 border border-white/10 hover:bg-white hover:text-black px-3 py-3
+                        rounded-xl transition font-bold uppercase tracking-widest whitespace-nowrap">
+                        Link
+                        </button>
+
+                        <button onclick="copyWhatsAppMessage(event)" data-name="<%= guest.name %>"
+                            data-link="<%= host %>/i/<%= guest.slug %>"
+                            class="text-[10px] bg-white/5 border border-white/10 hover:bg-emerald-600 hover:border-emerald-500 hover:text-white px-3 py-3 rounded-xl transition font-bold uppercase tracking-widest whitespace-nowrap">
+                            Text WA
+                        </button>
             </div>
+            </div>
+            <% }) %>
+                </div>
+                </div>
+
+                <footer class="mt-6 pt-6 border-t border-white/5 flex justify-between items-center opacity-20">
+                    <p class="text-[9px] tracking-widest uppercase">Admin Panel v2.0</p>
+                    <p class="text-[9px] tracking-widest uppercase">2026 &copy; CERIA & RIZKY</p>
+                </footer>
+                </div>
         </section>
-    </div>
+    </main>
 
     <script>
-        function copyLink(id) {
+        // --- COPY LINK ONLY LOGIC ---
+        async function copyLink(e, id) {
             const copyText = document.getElementById(id);
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); // Untuk mobile
-            navigator.clipboard.writeText(copyText.value);
-
-            // Notifikasi sederhana
-            const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = "Copied!";
-            btn.classList.add('bg-green-500', 'text-white');
-
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.classList.remove('bg-green-500', 'text-white');
-            }, 2000);
+            const btn = e.currentTarget;
+            try {
+                await navigator.clipboard.writeText(copyText.value);
+                const originalText = btn.innerText;
+                btn.innerText = "COPIED";
+                btn.style.backgroundColor = "white";
+                btn.style.color = "black";
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.backgroundColor = "";
+                    btn.style.color = "";
+                }, 2000);
+            } catch (err) {
+                copyText.select();
+                document.execCommand('copy');
+            }
         }
+
+        // --- COPY FULL WHATSAPP MESSAGE LOGIC ---
+        async function copyWhatsAppMessage(e) {
+            const btn = e.currentTarget;
+            const guestName = btn.getAttribute('data-name');
+            const guestLink = btn.getAttribute('data-link');
+
+            // Template teks format pesan WhatsApp sesuai permintaan Anda
+            const fullMessage = `Bismillahirrahmanirrahim
+
+Assalamu’alaikum Wr. Wb
+
+Kepada Yth.
+${guestName}
+
+Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i
+
+*Berikut link undangan kami*, untuk info lengkap dari acara kami : 
+
+${guestLink}
+
+Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu
+
+Mohon maaf undangan disampaikan melalui pesan ini.
+
+Terima kasih atas perhatian dan doa yang diberikan.
+
+Wassalamu’alaikum Wr. Wb
+
+*Note :*
+Copy link kemudian paste di *Chrome* atau *Browser Lain* jika tidak bisa dibuka`;
+
+            try {
+                await navigator.clipboard.writeText(fullMessage);
+                const originalText = btn.innerText;
+                btn.innerText = "TEXT COPIED";
+                btn.style.backgroundColor = "#059669"; // Emerald 600
+                btn.style.borderColor = "#10b981";     // Emerald 500
+                btn.style.color = "white";
+
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.backgroundColor = "";
+                    btn.style.borderColor = "";
+                    btn.style.color = "";
+                }, 2000);
+            } catch (err) {
+                alert("Gagal menyalin teks otomatis");
+            }
+        }
+
+        // --- AJAX SUBMIT ---
+        const guestForm = document.getElementById('guestForm');
+        const guestListContainer = document.getElementById('guestListContainer');
+        const submitBtn = document.getElementById('submitBtn');
+
+        guestForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const nameInput = document.getElementById('guestNameInput');
+            submitBtn.innerText = "GENERATING...";
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch('/admin/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: nameInput.value })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    nameInput.value = '';
+
+                    // Template HTML injeksi AJAX baru (Mendukung tombol Link dan Text WA baru)
+                    const html = `
+                        <div class="admin-input p-5 rounded-2xl hover:bg-white/[0.07] transition group new-guest-anim">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-sm font-semibold tracking-wide text-white/90 uppercase">${data.guest.name}</span>
+                                <span class="text-[9px] opacity-20">Just now</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="text" readonly value="${data.host}/i/${data.guest.slug}" id="link-${data.guest.id}"
+                                    class="bg-black/40 text-[10px] p-3 rounded-xl flex-1 border-none text-white/40 font-mono tracking-tighter">
+                                
+                                <button onclick="copyLink(event, 'link-${data.guest.id}')"
+                                    class="text-[10px] bg-white/5 border border-white/10 hover:bg-white hover:text-black px-3 py-3 rounded-xl transition font-bold uppercase tracking-widest whitespace-nowrap">
+                                    Link
+                                </button>
+
+                                <button onclick="copyWhatsAppMessage(event)" 
+                                    data-name="${data.guest.name}" 
+                                    data-link="${data.host}/i/${data.guest.slug}"
+                                    class="text-[10px] bg-white/5 border border-white/10 hover:bg-emerald-600 hover:border-emerald-500 hover:text-white px-3 py-3 rounded-xl transition font-bold uppercase tracking-widest whitespace-nowrap">
+                                    Text WA
+                                </button>
+                            </div>
+                        </div>`;
+                    guestListContainer.insertAdjacentHTML('afterbegin', html);
+                }
+            } catch (error) {
+                alert("Server error");
+            } finally {
+                submitBtn.innerText = "GENERATE NOW";
+                submitBtn.disabled = false;
+            }
+        });
     </script>
 </body>
 

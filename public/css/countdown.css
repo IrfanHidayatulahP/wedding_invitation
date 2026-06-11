@@ -3,30 +3,36 @@
 .countdown-section {
     position: relative;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    /* Pindah ke bawah */
     overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
 }
 
 .countdown-bg-image {
     position: absolute;
-    inset: -5px;
-    background: url('/images/SLM08594.JPG') no-repeat center;
+    top: -1px;
+    left: -100px;
+    right: -1px;
+    bottom: -1px;
+    background: url('/images/SLM08594.JPG') no-repeat center center;
     background-size: cover;
     z-index: 1;
+    transform: scale(1.02);
 }
 
 .countdown-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom,
-            rgba(0, 0, 0, 0.2) 0%,
-            rgba(0, 0, 0, 0.4) 50%,
-            rgba(0, 0, 0, 0.8) 100%);
+            rgba(0, 0, 0, 0.1) 0%,
+            rgba(0, 0, 0, 0.3) 50%,
+            rgba(0, 0, 0, 0.85) 100%);
     z-index: 2;
 }
 
@@ -90,13 +96,120 @@
     color: black;
 }
 
-/* Responsive untuk Mobile */
-@media (max-width: 768px) {
-    .split-layout {
-        flex-direction: column;
+/* --- OVERRIDE GLOBAL UNTUK MOBILE --- */
+@media (max-width: 1023px) {
+
+    html,
+    body {
+        height: 100dvh !important;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
     }
 
-    .split-left {
-        display: none;
+    .countdown-section {
+        height: 100dvh !important;
+        min-height: 100dvh !important;
+        width: 100% !important;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        overflow: hidden;
+    }
+
+    .countdown-bg-image {
+        height: 100dvh !important;
+        position: absolute;
+        top: -1px;
+        left: -100px;
+        right: -1px;
+        bottom: -1px;
+        /* Zoom sedikit agar tidak ada celah saat bar navigasi HP muncul/hilang */
+        transform: scale(1.1);
+        background-attachment: scroll;
+        background-size: cover !important;
+        z-index: 1;
+    }
+
+    .countdown-overlay {
+        position: absolute;
+        inset: 0;
+        /* Gradient lebih pekat di bawah agar teks timer putih sangat kontras */
+        background: linear-gradient(to bottom,
+                rgba(0, 0, 0, 0.1) 0%,
+                rgba(0, 0, 0, 0.4) 50%,
+                rgba(0, 0, 0, 0.85) 100%);
+        z-index: 2;
+    }
+
+    .countdown-content {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        max-width: 100%;
+        text-align: center;
+        /* Jarak aman dari bawah layar HP modern */
+        padding: 0 20px calc(40px + env(safe-area-inset-bottom)) 20px !important;
+    }
+
+    .countdown-title {
+        font-size: 9px;
+        letter-spacing: 0.4em;
+        margin-bottom: 25px;
+        padding: 0 10px;
+    }
+
+    .timer-grid {
+        display: flex;
+        justify-content: center;
+        /* Perkecil gap agar tidak terlalu lebar di layar HP sempit */
+        gap: 15px;
+        margin-bottom: 35px;
+    }
+
+    .timer-item {
+        /* Lebar minimum disesuaikan agar angka tetap sejajar */
+        min-width: 55px;
+    }
+
+    .timer-number {
+        /* Ukuran angka timer di mobile */
+        font-size: 38px;
+        display: block;
+        line-height: 1;
+    }
+
+    .timer-label {
+        font-size: 8px;
+        letter-spacing: 0.15em;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .save-date-btn {
+        padding: 12px 25px;
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Penyesuaian khusus untuk HP dengan layar sangat kecil (seperti iPhone SE) */
+@media (max-width: 370px) {
+    .timer-grid {
+        gap: 10px;
+    }
+
+    .timer-number {
+        font-size: 32px;
+    }
+
+    .timer-item {
+        min-width: 45px;
     }
 }

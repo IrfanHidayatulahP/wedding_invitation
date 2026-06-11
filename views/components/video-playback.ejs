@@ -13,20 +13,20 @@
                     <h2 class="video-title">OUR PREWEDDING STORY</h2>
                 </div>
 
-                <div class="video-player-container" id="videoContainer">
-                    <video id="prewedVideo" class="content-video" poster="/images/SLM08669.JPG">
-                        <source src="/videos/481E0889-C57D-4478-8EA7-ED57F40F3F31.mov" type="video/mp4">
+                <div class="video-player-container" id="videoContainer" onclick="toggleVideo()">
+                    <video id="prewedVideo" class="content-video" playsinline webkit-playsinline muted>
+                        <source src="/videos/202605120434.mp4" type="video/mp4">
                     </video>
 
                     <div class="video-controls-overlay" id="videoControls">
-                        <button class="play-pause-btn" onclick="toggleVideo()" id="mainBtn">
+                        <div class="play-pause-btn" id="mainBtn">
                             <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor" class="icon-svg">
                                 <path d="M8 5v14l11-7z" />
                             </svg>
                             <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" class="icon-svg hidden">
                                 <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
                             </svg>
-                        </button>
+                        </div>
                     </div>
                 </div>
 
@@ -42,34 +42,66 @@
 </section>
 
 <script>
-    const video = document.getElementById('prewedVideo');
-    const controls = document.getElementById('videoControls');
-    const playIcon = document.getElementById('playIcon');
-    const pauseIcon = document.getElementById('pauseIcon');
+    {
+        const video = document.getElementById('prewedVideo');
+        const controls = document.getElementById('videoControls');
+        const videoContainer = document.getElementById('videoContainer');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
 
-    function toggleVideo() {
-        if (video.paused) {
-            video.play();
-            updateUI(true);
-        } else {
-            video.pause();
-            updateUI(false);
+        let hideTimeout;
+
+        window.toggleVideo = function () {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
         }
-    }
 
-    function updateUI(isPlaying) {
-        if (isPlaying) {
-            playIcon.classList.add('hidden');
-            pauseIcon.classList.remove('hidden');
-            // Tambahkan class agar overlay bisa di-handle CSS (hidden saat play)
-            controls.classList.add('is-playing');
-        } else {
-            playIcon.classList.remove('hidden');
-            pauseIcon.classList.add('hidden');
-            // Pastikan overlay muncul kembali saat pause
-            controls.classList.remove('is-playing');
+        function hideControls() {
+            if (!video.paused) {
+                controls.classList.add('is-hidden');
+            }
         }
-    }
 
-    video.onended = () => updateUI(false);
+        function showControlsWithTimer() {
+            // Paksa tampilkan dulu
+            controls.classList.remove('is-hidden');
+            clearTimeout(hideTimeout);
+
+            // Timer untuk menyembunyikan
+            hideTimeout = setTimeout(hideControls, 3000);
+        }
+
+        function updateUI(isPlaying) {
+            if (isPlaying) {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+                showControlsWithTimer();
+            } else {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                controls.classList.remove('is-hidden');
+                clearTimeout(hideTimeout);
+            }
+        }
+
+        // LISTENER KHUSUS MOBILE & SAFARI
+        // Gunakan 'click' pada container karena Safari terkadang memblokir touchstart jika bentrok dengan playsinline
+        videoContainer.addEventListener('click', function () {
+            showControlsWithTimer();
+        });
+        videoContainer.addEventListener('touchend', showControlsWithTimer);
+
+        // Gunakan event 'playing' untuk Safari: terpicu saat video BENAR-BENAR mulai bergerak
+        video.addEventListener('playing', () => updateUI(true));
+        video.addEventListener('pause', () => updateUI(false));
+        video.addEventListener('waiting', () => {
+            controls.classList.remove('is-hidden');
+            clearTimeout(hideTimeout);
+        });
+
+        video.onended = () => updateUI(false);
+    }
 </script>

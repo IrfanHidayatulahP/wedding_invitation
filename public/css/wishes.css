@@ -27,12 +27,12 @@
 
 /* Background spesifik untuk halaman Input Wishes */
 .wishes-input-page .wishes-bg-image {
-    background-image: url('/images/SLM09121.JPG');
+    background-image: url('/images/SLM09292.JPG');
 }
 
 /* Background spesifik untuk halaman Display Wishes */
 .wishes-display-page .wishes-bg-image {
-    background-image: url('/images/SLM09307.JPG');
+    background-image: url('/images/SLM09292.JPG');
 }
 
 .wishes-overlay {
@@ -162,4 +162,134 @@
     margin-top: 20px;
     opacity: 0.5;
     text-transform: uppercase;
+}
+
+/* --- OVERRIDE GLOBAL UNTUK MOBILE --- */
+@media (max-width: 1023px) {
+
+    html,
+    body {
+        height: 100dvh !important;
+        overflow: hidden;
+    }
+
+    .wishes-section {
+        height: 100dvh !important;
+        width: 100% !important;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .wishes-bg-image {
+        height: 100% !important;
+        width: 100% !important;
+        position: absolute;
+        inset: 0;
+        transform: scale(1.1);
+        /* Zoom aman untuk coverage penuh */
+        background-size: cover !important;
+        background-position: center center !important;
+        z-index: 1;
+    }
+
+    .wishes-overlay {
+        background: rgba(0, 0, 0, 0.65);
+        /* Sedikit lebih gelap agar teks input jelas */
+        z-index: 2;
+    }
+
+    .wishes-content {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* Konten di tengah layar */
+        padding: 0 25px !important;
+        max-width: 100%;
+        z-index: 10;
+    }
+
+    /* --- INPUT PAGE STYLING --- */
+    .section-title {
+        font-size: 10px;
+        letter-spacing: 0.4em;
+        margin-bottom: 15px;
+    }
+
+    .wishes-desc {
+        font-size: 12px;
+        line-height: 1.6;
+        margin-bottom: 25px;
+        opacity: 0.8;
+    }
+
+    .wish-input,
+    .wish-textarea {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 13px;
+        /* Ukuran teks input yang nyaman di HP */
+        padding: 12px;
+    }
+
+    .send-btn {
+        padding: 14px;
+        font-size: 11px;
+        letter-spacing: 2px;
+        margin-top: 5px;
+    }
+
+    /* --- DISPLAY PAGE STYLING --- */
+    .wishes-grid {
+        gap: 12px;
+        /* Jarak antar item ucapan */
+    }
+
+    .wish-item {
+        padding: 12px 15px;
+        border-left: 2px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .wish-name {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .wish-text {
+        font-size: 11.5px;
+        line-height: 1.5;
+    }
+
+    .scroll-hint {
+        margin-top: 15px;
+        font-size: 8px;
+    }
+}
+
+/* Fix khusus untuk layar HP pendek (iPhone SE / Flip) */
+@media (max-height: 660px) and (orientation: portrait) {
+    .wishes-content {
+        padding-top: 20px !important;
+    }
+
+    .wishes-desc {
+        font-size: 11px;
+        margin-bottom: 15px;
+    }
+
+    .wish-textarea {
+        grid-row: 3;
+        height: 80px;
+    }
+
+    .wish-item {
+        padding: 10px;
+    }
+
+    .wishes-grid {
+        gap: 8px;
+    }
 }

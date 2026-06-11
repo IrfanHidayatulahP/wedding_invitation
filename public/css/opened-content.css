@@ -106,12 +106,96 @@
     opacity: 0.8;
 }
 
-@media (max-width: 480px) {
+/* --- OVERRIDE GLOBAL UNTUK MOBILE --- */
+@media (max-width: 1023px) {
+    html,
+    body {
+        height: 100dvh !important;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    .opened-content-section {
+        height: 100dvh !important;
+        width: 100% !important;
+        position: relative;
+        /* Wajib relative */
+        overflow: hidden;
+        display: block;
+        /* Kita ganti flex ke block agar absolute anak-nya bekerja maksimal */
+    }
+
+    .opened-content-bg {
+        height: 100% !important;
+        width: 100% !important;
+        position: absolute;
+        inset: -1px;
+        transform: scale(1.1);
+        background-size: cover !important;
+        background-position: center center !important;
+        z-index: 1;
+    }
+
+    /* --- PAKSA KOTAK KE BAWAH --- */
+    .quote-wrapper {
+        position: absolute !important;
+        bottom: 0 !important;
+        /* Paksa ke paling bawah */
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        /* Tengahkan secara horizontal */
+        width: 100%;
+        max-width: 100%;
+        /* Jarak aman dari pinggir layar dan bar navigasi HP */
+        padding: 0 15px calc(40px + env(safe-area-inset-bottom)) 15px !important;
+        z-index: 10;
+    }
+
     .quote-content {
-        padding: 30px 20px;
+        padding: 25px 20px;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+        /* Tambah bayangan agar lebih elegan */
+    }
+
+    /* Optimasi Teks */
+    .arabic-text {
+        font-size: clamp(20px, 6vw, 26px);
+        line-height: 1.6;
+        margin-bottom: 12px;
+    }
+
+    .quote-translation {
+        font-size: 13px;
+        line-height: 1.5;
+        padding: 0 5px;
+    }
+
+    /* Penyesuaian gambar kecil di dalam box jika ada */
+    .image-container .quote-img {
+        width: 90px;
+        height: 90px;
+        margin-bottom: 15px;
+    }
+}
+
+/* Khusus untuk HP layar sangat kecil */
+@media (max-width: 380px) {
+    .quote-content {
+        padding: 20px 15px;
     }
 
     .arabic-text {
-        line-height: 1.8;
+        font-size: 18px;
+    }
+
+    .quote-translation {
+        font-size: 12px;
     }
 }

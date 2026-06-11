@@ -4,12 +4,14 @@
     position: relative;
     width: 100%;
     height: 100vh;
-    /* Full screen */
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    /* Menjaga konten utama di area atas */
     justify-content: center;
+    /* Menjaga konten di tengah secara horizontal */
     overflow: hidden;
     margin: 0;
+    padding-top: 80px;
 }
 
 /* Background Image Full Content */
@@ -38,13 +40,21 @@
     width: 100%;
     max-width: 450px;
     padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Wajib 100% agar footer bisa didorong ke bawah */
+    align-items: center;
+    /* Memastikan semua anak elemen berada di tengah horizontal */
 }
 
 .closing-thank-you {
-    font-size: 12px;
+    font-size: 18px;
     letter-spacing: 0.8em;
     margin-bottom: 15px;
     opacity: 0.8;
+    text-transform: uppercase;
+    /* Dihapus margin-left agar tidak miring */
 }
 
 .closing-divider {
@@ -56,34 +66,97 @@
 
 .closing-names {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 48px;
+    font-size: 32px;
     font-style: italic;
     margin-bottom: 10px;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    /* Dihapus margin-left agar tidak miring */
 }
 
-.closing-date {
+.closing-message-text {
     font-size: 14px;
-    letter-spacing: 0.3em;
-    margin-bottom: 40px;
+    line-height: 1.6;
     opacity: 0.9;
+    max-width: 350px;
+    margin: 0 auto;
 }
 
-/* Styling Foto Utama di Halaman Penutup */
-.closing-image-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.closing-img {
+.closing-footer {
+    margin-top: auto;
+    /* Mendorong footer ke paling bawah */
+    padding-bottom: 40px;
     width: 100%;
-    max-width: 320px;
-    height: auto;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(5px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-    filter: brightness(0.9);
+}
+
+.closing-footer-text {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+/* --- OVERRIDE GLOBAL UNTUK MOBILE --- */
+@media (max-width: 1023px) {
+
+    html,
+    body {
+        height: 100dvh !important;
+        overflow: hidden;
+    }
+
+    .closing-section {
+        height: 100dvh !important;
+        padding-top: 60px !important;
+        align-items: flex-start !important;
+    }
+
+    .closing-content-wrapper {
+        height: 100%;
+        padding: 0 25px !important;
+    }
+
+    .closing-thank-you {
+        font-size: 14px;
+        letter-spacing: 0.5em;
+        margin-bottom: 10px;
+    }
+
+    .closing-names {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .closing-message-text {
+        font-size: 13px;
+        line-height: 1.7;
+        max-width: 280px;
+        margin: 0 auto;
+        /* Memastikan teks benar-benar di tengah */
+        text-align: center;
+    }
+
+    .closing-footer {
+        padding-bottom: 30px !important;
+    }
+
+    .closing-footer-text {
+        font-size: 10px;
+        letter-spacing: 0.2em;
+    }
+}
+
+/* Penyesuaian khusus untuk HP layar pendek */
+@media (max-height: 660px) {
+    .closing-section {
+        padding-top: 40px !important;
+    }
+
+    .closing-names {
+        font-size: 24px;
+    }
+
+    .closing-message-text {
+        font-size: 12px;
+        max-width: 250px;
+    }
 }

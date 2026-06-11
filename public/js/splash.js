@@ -4,12 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageContainer = document.getElementById('imageContainer');
     const splashScreen = document.getElementById('splashScreen');
 
+    // 1. UPDATE: Daftar foto sesuai list baru (Pastikan case .jpg sesuai)
     const photos = [
-        "SLM08533.JPG", "SLM08594.JPG", "SLM08669.JPG", "SLM08673.JPG",
-        "SLM08723.JPG", "SLM08743.JPG", "SLM08759.JPG", "SLM08846.JPG",
-        "SLM08874.JPG", "SLM09121.JPG", "SLM09131.JPG", "SLM09212.JPG",
-        "SLM09249.JPG", "SLM09279.JPG", "SLM09290.JPG", "SLM09292.JPG",
-        "SLM09307.JPG", "SLM09312.JPG", "SLM09319.JPG"
+        "SLM08509.jpg", "SLM08533.jpg", "SLM08594.jpg", "SLM08673.jpg",
+        "SLM08723.jpg", "SLM08743.jpg", "SLM08759.jpg", "SLM08846.jpg",
+        "SLM08874.jpg", "SLM09121.jpg", "SLM09131.jpg", "SLM09212.jpg",
+        "SLM09279.jpg", "SLM09290.jpg", "SLM09292.jpg", "SLM09307.jpg",
+        "SLM09312.jpg", "SLM09319.jpg", "SLM084551.jpg", "SLM092491.jpg"
     ];
 
     let currentIdx = 0;
@@ -18,7 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function changeImage() {
         const newImg = document.createElement('img');
-        newImg.src = `/images/${photos[currentIdx]}`;
+
+        // 2. UPDATE: Ubah path folder dari /images/ ke /compresses-images/
+        newImg.src = `/compresses-images/${photos[currentIdx]}`;
 
         imageContainer.appendChild(newImg);
 
@@ -54,8 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => {
                 splashScreen.classList.add('fade-out');
-                // MODIFIKASI: Kita hapus baris unlocked body di sini agar menu burger 
-                // tidak muncul sebelum tombol "LET'S OPEN" diklik.
             }, 600);
         }
     }, totalDuration / 100);
