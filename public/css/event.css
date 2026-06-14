@@ -85,20 +85,34 @@
 }
 
 .maps-btn {
-    display: inline-block;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: white;
-    padding: 15px 45px;
-    font-size: 11px;
-    letter-spacing: 0.3em;
+    display: block;
+    width: -webkit-max-content;
+    width: max-content;
+    margin: 12px auto 0;
+    padding: 12px 28px;
+    font-size: 13px;
+    letter-spacing: 0.12em;
     text-decoration: none;
-    transition: all 0.4s ease;
-    border-radius: 2px;
+    color: #fff;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.03);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
 }
 
 .maps-btn:hover {
-    background: white;
-    color: #111;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    background: linear-gradient(90deg,#ff6a00,#ff8e53);
+    color: #fff;
+    border-color: rgba(255,255,255,0.3);
+}
+
+.maps-btn:active {
+    transform: translateY(-1px) scale(0.99);
 }
 
 .event-date {
@@ -198,9 +212,9 @@
     }
 
     .maps-btn {
-        padding: 12px 35px;
-        font-size: 10px;
-        letter-spacing: 0.2em;
+        padding: 10px 24px;
+        font-size: 12px;
+        letter-spacing: 0.12em;
     }
 }
 
